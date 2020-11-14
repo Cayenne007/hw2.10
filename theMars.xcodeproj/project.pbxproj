@@ -7,23 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB12C5FA2560033B007AE033 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C5F92560033B007AE033 /* NetworkManager.swift */; };
+		AB12C60425601646007AE033 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C60325601646007AE033 /* PhotoViewController.swift */; };
 		AB611EFF255FCE920075AC11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB611EFE255FCE920075AC11 /* AppDelegate.swift */; };
 		AB611F01255FCE920075AC11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB611F00255FCE920075AC11 /* SceneDelegate.swift */; };
-		AB611F03255FCE920075AC11 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB611F02255FCE920075AC11 /* ViewController.swift */; };
 		AB611F06255FCE920075AC11 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB611F04255FCE920075AC11 /* Main.storyboard */; };
 		AB611F08255FCE950075AC11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB611F07255FCE950075AC11 /* Assets.xcassets */; };
 		AB611F0B255FCE950075AC11 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB611F09255FCE950075AC11 /* LaunchScreen.storyboard */; };
+		AB611F1B255FCFC70075AC11 /* theMars.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AB611F1A255FCFC70075AC11 /* theMars.jpg */; };
+		AB611F20255FD0F40075AC11 /* MainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB611F1F255FD0F40075AC11 /* MainCollectionViewController.swift */; };
+		AB611F23255FD28A0075AC11 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB611F22255FD28A0075AC11 /* MainCollectionViewCell.swift */; };
+		AB611F27255FFFB90075AC11 /* Rover.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB611F26255FFFB90075AC11 /* Rover.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB12C5F92560033B007AE033 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		AB12C60325601646007AE033 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		AB611EFB255FCE920075AC11 /* theMars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = theMars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB611EFE255FCE920075AC11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AB611F00255FCE920075AC11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		AB611F02255FCE920075AC11 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		AB611F05255FCE920075AC11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB611F07255FCE950075AC11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB611F0A255FCE950075AC11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB611F0C255FCE950075AC11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB611F1A255FCFC70075AC11 /* theMars.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = theMars.jpg; sourceTree = "<group>"; };
+		AB611F1F255FD0F40075AC11 /* MainCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewController.swift; sourceTree = "<group>"; };
+		AB611F22255FD28A0075AC11 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB611F26255FFFB90075AC11 /* Rover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rover.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,9 +68,14 @@
 			children = (
 				AB611EFE255FCE920075AC11 /* AppDelegate.swift */,
 				AB611F00255FCE920075AC11 /* SceneDelegate.swift */,
-				AB611F02255FCE920075AC11 /* ViewController.swift */,
 				AB611F04255FCE920075AC11 /* Main.storyboard */,
+				AB611F26255FFFB90075AC11 /* Rover.swift */,
+				AB12C60325601646007AE033 /* PhotoViewController.swift */,
+				AB12C5F92560033B007AE033 /* NetworkManager.swift */,
+				AB611F1F255FD0F40075AC11 /* MainCollectionViewController.swift */,
+				AB611F22255FD28A0075AC11 /* MainCollectionViewCell.swift */,
 				AB611F07255FCE950075AC11 /* Assets.xcassets */,
+				AB611F1A255FCFC70075AC11 /* theMars.jpg */,
 				AB611F09255FCE950075AC11 /* LaunchScreen.storyboard */,
 				AB611F0C255FCE950075AC11 /* Info.plist */,
 			);
@@ -124,6 +139,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB611F1B255FCFC70075AC11 /* theMars.jpg in Resources */,
 				AB611F0B255FCE950075AC11 /* LaunchScreen.storyboard in Resources */,
 				AB611F08255FCE950075AC11 /* Assets.xcassets in Resources */,
 				AB611F06255FCE920075AC11 /* Main.storyboard in Resources */,
@@ -137,9 +153,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB611F03255FCE920075AC11 /* ViewController.swift in Sources */,
+				AB12C5FA2560033B007AE033 /* NetworkManager.swift in Sources */,
 				AB611EFF255FCE920075AC11 /* AppDelegate.swift in Sources */,
+				AB611F20255FD0F40075AC11 /* MainCollectionViewController.swift in Sources */,
 				AB611F01255FCE920075AC11 /* SceneDelegate.swift in Sources */,
+				AB12C60425601646007AE033 /* PhotoViewController.swift in Sources */,
+				AB611F27255FFFB90075AC11 /* Rover.swift in Sources */,
+				AB611F23255FD28A0075AC11 /* MainCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
