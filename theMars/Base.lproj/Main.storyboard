@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="uOK-R4-3jG">
-                                <rect key="frame" x="16" y="100" width="382" height="499"/>
+                                <rect key="frame" x="16" y="100" width="382" height="214"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="VFH-OS-Ul1">
                                         <rect key="frame" x="0.0" y="0.0" width="284" height="63.5"/>
@@ -105,27 +105,36 @@
                                                     <segment title="Opportunity"/>
                                                     <segment title="Spirit"/>
                                                 </segments>
+                                                <connections>
+                                                    <action selector="roverChanged" destination="GZf-Sj-2Xh" eventType="valueChanged" id="nvc-wF-INv"/>
+                                                </connections>
                                             </segmentedControl>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="PNF-vy-80w">
-                                        <rect key="frame" x="0.0" y="103.5" width="382" height="395.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Информация о ровере: ..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KH2-fb-6gE">
+                                        <rect key="frame" x="0.0" y="103.5" width="203.5" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nFs-vd-xuQ">
+                                        <rect key="frame" x="0.0" y="164" width="369" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Период:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1N-fi-Xf0">
-                                                <rect key="frame" x="0.0" y="0.0" width="66" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="66" height="50"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="zsr-ZU-gKG">
-                                                <rect key="frame" x="0.0" y="41.5" width="382" height="354"/>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="zsr-ZU-gKG">
+                                                <rect key="frame" x="74" y="0.0" width="295" height="50"/>
                                             </datePicker>
                                         </subviews>
                                     </stackView>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DV3-cO-gnw">
-                                <rect key="frame" x="155" y="619" width="104" height="36"/>
+                                <rect key="frame" x="155" y="364" width="104" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Применить"/>
                                 <connections>
@@ -148,18 +157,19 @@
                             <constraint firstItem="DV3-cO-gnw" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Myc-LA-Faw"/>
                             <constraint firstItem="NYc-DU-06s" firstAttribute="trailing" secondItem="uOK-R4-3jG" secondAttribute="trailing" constant="16" id="WGx-nz-p4T"/>
                             <constraint firstItem="oR1-rD-zJk" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="20" id="hmZ-9v-8Ai"/>
-                            <constraint firstItem="DV3-cO-gnw" firstAttribute="top" secondItem="uOK-R4-3jG" secondAttribute="bottom" constant="20" id="zCJ-1R-h3y"/>
+                            <constraint firstItem="DV3-cO-gnw" firstAttribute="top" secondItem="uOK-R4-3jG" secondAttribute="bottom" constant="50" id="zCJ-1R-h3y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Фильтр" id="owb-Uq-knz"/>
                     <connections>
                         <outlet property="photoDatePicker" destination="zsr-ZU-gKG" id="4eG-0M-jxl"/>
+                        <outlet property="roverInfoLabel" destination="KH2-fb-6gE" id="XoY-yK-Hen"/>
                         <outlet property="roverTypeSegmentControl" destination="bEO-LV-3V1" id="9VK-wv-CbZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QDx-ss-wGE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1229" y="825"/>
+            <point key="canvasLocation" x="1228.985507246377" y="825"/>
         </scene>
         <!--Фото-->
         <scene sceneID="ujM-2i-yE2">

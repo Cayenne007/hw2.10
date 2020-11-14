@@ -12,6 +12,9 @@ class FilterViewController: UIViewController {
     
     @IBOutlet var roverTypeSegmentControl: UISegmentedControl!
     @IBOutlet var photoDatePicker: UIDatePicker!
+    @IBOutlet var roverInfoLabel: UILabel!
+    
+    
     
     var delegate: ResultsDidLoadDelegate!
     var filter: RoverFilter!
@@ -21,6 +24,11 @@ class FilterViewController: UIViewController {
 
         roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
         photoDatePicker.date = filter.date.toDate ?? Date()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        setRoverInfo()
     }
     
     
@@ -35,6 +43,24 @@ class FilterViewController: UIViewController {
         
     }
     
+    @IBAction func roverChanged() {
+        
+        filter.roverType = RoverType.allCases[roverTypeSegmentControl.selectedSegmentIndex]
+        setRoverInfo()
+        
+    }
+    
+    
+    
+    func setRoverInfo() {
+        DispatchQueue.global().async {
+            NetworkManager.getRoverInfo(filter: self.filter) { (info) in
+                DispatchQueue.main.async {
+                    self.roverInfoLabel.text = info
+                }
+            }
+        }
+    }
     
 
 }

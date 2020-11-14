@@ -67,5 +67,43 @@ struct NetworkManager {
         }
     }
     
+    static func getRoverInfo(filter: RoverFilter, completionHandler: @escaping (String) -> ()) {
+        
+        let strUrl = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
+  
+        guard let url = URL(string: strUrl) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+        
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let data = data else {
+                print("data has an incorrect structure")
+                return
+            }
+            
+            do {
+                let roverInfoManifest = try JSONDecoder().decode(RoverManifest.self, from: data)
+                let roverInfo = roverInfoManifest.photo_manifest
+                
+                let infoString = """
+                    Статус: \(roverInfo.status)
+                    Начало миссии: \(roverInfo.launch_date)
+                    Последняя активность: \(roverInfo.max_date)
+                    Всего фото: \(roverInfo.total_photos)
+                """
+                completionHandler(infoString)
+            } catch {
+                print(error)
+            }
+        
+            
+        }.resume()
+
+    }
+    
 }
 
