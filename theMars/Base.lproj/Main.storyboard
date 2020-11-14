@@ -12,7 +12,6 @@
         <!--Фотографии-->
         <scene sceneID="Ep4-qW-vUv">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EAv-4O-nkO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <collectionViewController id="RJf-sM-zch" customClass="MainCollectionViewController" customModule="theMars" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="HRN-ZU-YWf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -67,31 +66,115 @@
                         <barButtonItem key="rightBarButtonItem" title="Изменить 1000" image="calendar" catalog="system" id="U9E-Jh-Pq7">
                             <connections>
                                 <action selector="changeSol:" destination="RJf-sM-zch" id="g9e-ib-9dK"/>
+                                <segue destination="GZf-Sj-2Xh" kind="showDetail" id="sb3-c2-thD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="chagneSolButton" destination="U9E-Jh-Pq7" id="cos-NK-IWk"/>
-                        <segue destination="z7c-AQ-8CJ" kind="showDetail" identifier="photo" id="7lU-Po-rEz"/>
+                        <segue destination="z7c-AQ-8CJ" kind="show" identifier="photo" id="7lU-Po-rEz"/>
                     </connections>
                 </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EAv-4O-nkO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1228.985507246377" y="62.946428571428569"/>
+        </scene>
+        <!--Фильтр-->
+        <scene sceneID="LwU-YM-VWD">
+            <objects>
+                <viewController title="Фильтр" id="GZf-Sj-2Xh" customClass="FilterViewController" customModule="theMars" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4vC-wG-xKr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="uOK-R4-3jG">
+                                <rect key="frame" x="16" y="100" width="382" height="499"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="VFH-OS-Ul1">
+                                        <rect key="frame" x="0.0" y="0.0" width="284" height="63.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Тип ровера: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xoj-oZ-WAK">
+                                                <rect key="frame" x="0.0" y="0.0" width="284" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="bEO-LV-3V1">
+                                                <rect key="frame" x="0.0" y="32.5" width="284" height="32"/>
+                                                <segments>
+                                                    <segment title="Curiosity"/>
+                                                    <segment title="Opportunity"/>
+                                                    <segment title="Spirit"/>
+                                                </segments>
+                                            </segmentedControl>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="PNF-vy-80w">
+                                        <rect key="frame" x="0.0" y="103.5" width="382" height="395.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Период:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1N-fi-Xf0">
+                                                <rect key="frame" x="0.0" y="0.0" width="66" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="zsr-ZU-gKG">
+                                                <rect key="frame" x="0.0" y="41.5" width="382" height="354"/>
+                                            </datePicker>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DV3-cO-gnw">
+                                <rect key="frame" x="155" y="619" width="104" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Применить"/>
+                                <connections>
+                                    <action selector="confirmNewFilter" destination="GZf-Sj-2Xh" eventType="touchUpInside" id="iu9-OQ-xTY"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Настройте фильтр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oR1-rD-zJk">
+                                <rect key="frame" x="64.5" y="20" width="285" height="41"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="NYc-DU-06s"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uOK-R4-3jG" firstAttribute="leading" secondItem="NYc-DU-06s" secondAttribute="leading" constant="16" id="9UW-UN-wmR"/>
+                            <constraint firstItem="uOK-R4-3jG" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="100" id="DOn-0x-iZv"/>
+                            <constraint firstItem="oR1-rD-zJk" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="DUM-MY-zvV"/>
+                            <constraint firstItem="DV3-cO-gnw" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Myc-LA-Faw"/>
+                            <constraint firstItem="NYc-DU-06s" firstAttribute="trailing" secondItem="uOK-R4-3jG" secondAttribute="trailing" constant="16" id="WGx-nz-p4T"/>
+                            <constraint firstItem="oR1-rD-zJk" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="20" id="hmZ-9v-8Ai"/>
+                            <constraint firstItem="DV3-cO-gnw" firstAttribute="top" secondItem="uOK-R4-3jG" secondAttribute="bottom" constant="20" id="zCJ-1R-h3y"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Фильтр" id="owb-Uq-knz"/>
+                    <connections>
+                        <outlet property="photoDatePicker" destination="zsr-ZU-gKG" id="4eG-0M-jxl"/>
+                        <outlet property="roverTypeSegmentControl" destination="bEO-LV-3V1" id="9VK-wv-CbZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QDx-ss-wGE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1229" y="825"/>
         </scene>
         <!--Фото-->
         <scene sceneID="ujM-2i-yE2">
             <objects>
                 <viewController id="z7c-AQ-8CJ" customClass="PhotoViewController" customModule="theMars" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sx7-fu-uDj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CCc-gx-qJq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
                                 <gestureRecognizers/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uju-bG-0g3">
-                                <rect key="frame" x="16" y="20" width="382" height="100"/>
+                                <rect key="frame" x="16" y="160" width="382" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="K7S-db-629"/>
                                 </constraints>
@@ -125,7 +208,6 @@
         <!--Navigation Controller-->
         <scene sceneID="8hg-XN-QUd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2XK-0A-r0N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y8v-is-DC4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="cA8-go-VJU">
@@ -137,6 +219,7 @@
                         <segue destination="RJf-sM-zch" kind="relationship" relationship="rootViewController" id="6Tn-Ir-GKV"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2XK-0A-r0N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="31.884057971014496" y="62.946428571428569"/>
         </scene>

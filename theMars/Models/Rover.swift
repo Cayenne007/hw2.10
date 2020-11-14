@@ -6,11 +6,11 @@
 //
 
 struct RoverPhoto: Decodable {
-    var sol: Int
-    var camera: RoverCamera
-    var img_src: String
-    var earth_date: String  //YYYY-MM-DD
-    var rover: Rover
+    let sol: Int
+    let camera: RoverCamera
+    let img_src: String
+    let earth_date: String  //YYYY-MM-DD
+    let rover: Rover
     
     var description: String {
         """
@@ -23,15 +23,15 @@ struct RoverPhoto: Decodable {
 }
 
 struct RoverCamera: Decodable {
-    var name: String
+    let name: String
 }
 
 struct Rover: Decodable {
-    var name: String
+    let name: String
 }
 
 struct RoverData: Decodable {
-    var photos: [RoverPhoto]
+    let photos: [RoverPhoto]
 }
 
 

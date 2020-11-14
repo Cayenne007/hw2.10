@@ -9,9 +9,10 @@ import UIKit
 
 struct NetworkManager {
     
-    static func loadData(sol: String, delegate: ResultsDidLoadDelegate) {
+    static func loadData(filter: RoverFilter, delegate: ResultsDidLoadDelegate) {
         
-        let strUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=\(sol)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
+        let strUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/\(filter.roverType)/photos?earth_date=\(filter.date)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
+  
         guard let url = URL(string: strUrl) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, _, error) in
@@ -28,7 +29,7 @@ struct NetworkManager {
             
             do {
                 let photos = try JSONDecoder().decode(RoverData.self, from: data)
-                delegate.updateList(photos: photos.photos, date: sol)
+                delegate.updateList(photos: photos.photos, filter: filter)
             } catch {
                 print(error)
             }

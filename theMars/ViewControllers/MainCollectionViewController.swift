@@ -8,34 +8,33 @@
 import UIKit
 
 protocol ResultsDidLoadDelegate {
-    func updateList(photos: [RoverPhoto], date: String)
+    func updateList(photos: [RoverPhoto], filter: RoverFilter)
+    func startAnimateLoadingProcess()
+    func stopAnimateLoadingProcess()
 }
 
 
 class MainCollectionViewController: UICollectionViewController {
 
-    @IBOutlet var chagneSolButton: UIBarButtonItem!
     
     var photos: [RoverPhoto] = []
     let activityView = UIActivityIndicatorView(style: .large)
     
-    var sol = "1000"
+    var filter = RoverFilter.getDefault()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NetworkManager.loadData(sol: sol, delegate: self)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         activityView.startAnimating()
         activityView.hidesWhenStopped = true
         view.addSubview(activityView)
         activityView.center = view.center
+        
+        NetworkManager.loadData(filter: filter, delegate: self)
     }
-
-
+    
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -62,41 +61,16 @@ class MainCollectionViewController: UICollectionViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //guard let cell = sender as? MainCollectionViewCell else { return }
-        guard let photo = sender as? RoverPhoto else { return }
-        let photoVC = segue.destination as! PhotoViewController
-        photoVC.photo = photo
         
-    }
-    
-    
-    @IBAction func changeSol(_ sender: Any) {
-        
-        let alert = UIAlertController(title: "", message: "Введите номер марсианских суток", preferredStyle: .alert)
-        
-        alert.addTextField { (textField) in
-            textField.text = "1000"
-            textField.keyboardType = .decimalPad
+        if let photoVC = segue.destination as? PhotoViewController {
+            guard let photo = sender as? RoverPhoto else { return }
+            photoVC.photo = photo
+        } else if let filterVC = segue.destination as? FilterViewController {
+            filterVC.filter = filter
+            filterVC.delegate = self
         }
-
-        let action = UIAlertAction(title: "ok", style: .default) { (alertAction) in
-            let newSol = alert.textFields![0].text ?? self.sol
-            self.setNewSol(newSol)
-        }
-
-        alert.addAction(action)
-        
-        present(alert, animated: true)
-        
+    
     }
-    
-    func setNewSol(_ newSol: String) {
-        NetworkManager.loadData(sol: newSol, delegate: self)
-    }
-    
-    
-    
-
 }
 
 
@@ -107,20 +81,33 @@ extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension MainCollectionViewController: ResultsDidLoadDelegate {
-    func updateList(photos: [RoverPhoto], date: String) {
+    func startAnimateLoadingProcess() {
+        activityView.startAnimating()
+    }
+    
+    func stopAnimateLoadingProcess() {
+        activityView.stopAnimating()
+    }
+    
+    
+    func updateList(photos: [RoverPhoto], filter: RoverFilter) {
         DispatchQueue.main.async {
             
             if photos.count == 0 {
-                self.alert(title: "Нет фото", message: "В указаном дне нет фотографий! Попробуйте выбрать другой день")
+                self.alert(title: "Нет фото",
+                        message: "\(filter.roverType) на дату \(filter.date) не содержит данных!"
+                )
                 return
             }
             self.photos = photos
+            self.filter = filter
             
             self.activityView.stopAnimating()
-            self.chagneSolButton.title = "Изменить \(date)"
             self.collectionView.reloadData()
         }
     }
+    
+    
 }
 
 
