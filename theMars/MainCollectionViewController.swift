@@ -19,11 +19,13 @@ class MainCollectionViewController: UICollectionViewController {
     var photos: [RoverPhoto] = []
     let activityView = UIActivityIndicatorView(style: .large)
     
+    var sol = "1000"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NetworkManager.loadData(delegate: self)
+        NetworkManager.loadData(sol: sol, delegate: self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -70,7 +72,7 @@ class MainCollectionViewController: UICollectionViewController {
     
     @IBAction func changeSol(_ sender: Any) {
         
-        let alert = UIAlertController(title: "", message: "Введите номер суток", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: "Введите номер марсианских суток", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
             textField.text = "1000"
@@ -78,7 +80,7 @@ class MainCollectionViewController: UICollectionViewController {
         }
 
         let action = UIAlertAction(title: "ok", style: .default) { (alertAction) in
-            let newSol = alert.textFields![0].text
+            let newSol = alert.textFields![0].text ?? self.sol
             self.setNewSol(newSol)
         }
 
@@ -88,8 +90,8 @@ class MainCollectionViewController: UICollectionViewController {
         
     }
     
-    func setNewSol(_ newSol: String?) {
-        NetworkManager.loadData(newSol ?? "1000", delegate: self)
+    func setNewSol(_ newSol: String) {
+        NetworkManager.loadData(sol: newSol, delegate: self)
     }
     
     
@@ -106,11 +108,30 @@ extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
 
 extension MainCollectionViewController: ResultsDidLoadDelegate {
     func updateList(photos: [RoverPhoto], date: String) {
-        self.photos = photos
         DispatchQueue.main.async {
+            
+            if photos.count == 0 {
+                self.alert(title: "Нет фото", message: "В указаном дне нет фотографий! Попробуйте выбрать другой день")
+                return
+            }
+            self.photos = photos
+            
             self.activityView.stopAnimating()
             self.chagneSolButton.title = "Изменить \(date)"
             self.collectionView.reloadData()
         }
+    }
+}
+
+
+extension MainCollectionViewController {
+    func alert(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+        self.present(alert, animated: true)
+        
     }
 }

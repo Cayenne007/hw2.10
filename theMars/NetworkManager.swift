@@ -9,7 +9,7 @@ import UIKit
 
 struct NetworkManager {
     
-    static func loadData(_ sol: String = "1000", delegate: ResultsDidLoadDelegate) {
+    static func loadData(sol: String, delegate: ResultsDidLoadDelegate) {
         
         let strUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=\(sol)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
         guard let url = URL(string: strUrl) else { return }
