@@ -97,7 +97,6 @@ extension MainCollectionViewController: ResultsDidLoadDelegate {
                 self.alert(title: "Нет фото",
                         message: "\(filter.roverType) на дату \(filter.date) не содержит данных!"
                 )
-                return
             }
             self.photos = photos
             self.filter = filter
