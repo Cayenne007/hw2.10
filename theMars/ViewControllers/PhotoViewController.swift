@@ -51,10 +51,26 @@ class PhotoViewController: UIViewController {
     @IBAction func saveButtonPressed(_ sender: Any) {
        
         guard let image = imageView.image else { return }
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(imageSaved(image:didFinishSavingWithError:contextInfo:)), nil)
         
     }
     
+    @objc func imageSaved(image:UIImage,didFinishSavingWithError error:Error,contextInfo:UnsafeMutableRawPointer?){
+        self.alert(title:"Успешно сохранено", message: "");
+    }
     
     
+}
+
+
+extension PhotoViewController {
+    func alert(title: String, message: String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+
+        self.present(alert, animated: true)
+        
+    }
 }

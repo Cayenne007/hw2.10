@@ -27,7 +27,7 @@ class FilterViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setRoverInfo()
+        setRoverInfo(setDate: false)
     }
     
     
@@ -59,13 +59,13 @@ class FilterViewController: UIViewController {
         photoDatePicker.date = filter.date.toDate ?? Date()
     }
     
-    private func setRoverInfo() {
+    private func setRoverInfo(setDate: Bool = true) {
         DispatchQueue.global().async {
             NetworkManager.getRoverInfo(filter: self.filter) { (roverInfo) in
                 DispatchQueue.main.async {
                     self.roverInfoLabel.text = roverInfo.info
                     
-                    if let date = roverInfo.max_date.toDate {
+                    if setDate, let date = roverInfo.max_date.toDate {
                         self.photoDatePicker.date = date
                     }
                 }
