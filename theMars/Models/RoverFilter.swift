@@ -11,6 +11,10 @@ struct RoverFilter {
     var roverType: RoverType
     var date: String
 
+    var description: String {
+        "\(roverType) \(date)"
+    }
+    
     static func getDefault() -> RoverFilter {
         RoverFilter(roverType: .curiosity, date: "2015-6-1")
     }

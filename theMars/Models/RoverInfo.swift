@@ -6,13 +6,22 @@
 // 
 
 struct RoverInfo: Decodable {
-    var launch_date: String
-    var status: String
-    var max_sol: Int
-    var max_date: String
-    var total_photos: Int
+    let launch_date: String
+    let status: String
+    let max_sol: Int
+    let max_date: String
+    let total_photos: Int
+    
+    var info: String {
+        """
+            Статус: \(status)
+            Начало миссии: \(launch_date)
+            Последняя активность: \(max_date)
+            Всего фото: \(total_photos)
+        """
+    }
 }
 
 struct RoverManifest: Decodable {
-    var photo_manifest: RoverInfo
+    let photo_manifest: RoverInfo
 }

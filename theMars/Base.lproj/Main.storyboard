@@ -63,7 +63,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Фотографии" id="fbx-Bn-ms2">
-                        <barButtonItem key="rightBarButtonItem" title="Изменить 1000" image="calendar" catalog="system" id="U9E-Jh-Pq7">
+                        <barButtonItem key="rightBarButtonItem" title="Изменить" image="calendar" catalog="system" id="U9E-Jh-Pq7">
                             <connections>
                                 <action selector="changeSol:" destination="RJf-sM-zch" id="g9e-ib-9dK"/>
                                 <segue destination="GZf-Sj-2Xh" kind="showDetail" id="sb3-c2-thD"/>
@@ -205,7 +205,13 @@
                             <constraint firstItem="lSJ-df-Eul" firstAttribute="trailing" secondItem="uju-bG-0g3" secondAttribute="trailing" constant="16" id="zfz-0f-tQ0"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Фото" id="Ze9-A3-70G"/>
+                    <navigationItem key="navigationItem" title="Фото" id="Ze9-A3-70G">
+                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="k8z-T9-2vG">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="z7c-AQ-8CJ" id="bYx-wX-YDV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="CCc-gx-qJq" id="HeW-9k-dlB"/>
                         <outlet property="infoLabel" destination="uju-bG-0g3" id="GaQ-bD-wvL"/>

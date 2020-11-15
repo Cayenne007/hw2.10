@@ -22,8 +22,7 @@ class FilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
-        photoDatePicker.date = filter.date.toDate ?? Date()
+        setElements()
         
     }
     
@@ -50,13 +49,25 @@ class FilterViewController: UIViewController {
         
     }
     
+    private func setElements() {
+        
+        roverTypeSegmentControl.removeAllSegments()
+        for index in 0 ... RoverType.allCases.count-1 {
+            roverTypeSegmentControl.insertSegment(withTitle: "\(RoverType.allCases[index])", at: index, animated: false)
+        }
+        roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
+        photoDatePicker.date = filter.date.toDate ?? Date()
+    }
     
-    
-    func setRoverInfo() {
+    private func setRoverInfo() {
         DispatchQueue.global().async {
-            NetworkManager.getRoverInfo(filter: self.filter) { (info) in
+            NetworkManager.getRoverInfo(filter: self.filter) { (roverInfo) in
                 DispatchQueue.main.async {
-                    self.roverInfoLabel.text = info
+                    self.roverInfoLabel.text = roverInfo.info
+                    
+                    if let date = roverInfo.max_date.toDate {
+                        self.photoDatePicker.date = date
+                    }
                 }
             }
         }

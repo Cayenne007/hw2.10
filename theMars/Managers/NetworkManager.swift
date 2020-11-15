@@ -67,7 +67,7 @@ struct NetworkManager {
         }
     }
     
-    static func getRoverInfo(filter: RoverFilter, completionHandler: @escaping (String) -> ()) {
+    static func getRoverInfo(filter: RoverFilter, completionHandler: @escaping (RoverInfo) -> ()) {
         
         let strUrl = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
   
@@ -89,13 +89,7 @@ struct NetworkManager {
                 let roverInfoManifest = try JSONDecoder().decode(RoverManifest.self, from: data)
                 let roverInfo = roverInfoManifest.photo_manifest
                 
-                let infoString = """
-                    Статус: \(roverInfo.status)
-                    Начало миссии: \(roverInfo.launch_date)
-                    Последняя активность: \(roverInfo.max_date)
-                    Всего фото: \(roverInfo.total_photos)
-                """
-                completionHandler(infoString)
+                completionHandler(roverInfo)
             } catch {
                 print(error)
             }

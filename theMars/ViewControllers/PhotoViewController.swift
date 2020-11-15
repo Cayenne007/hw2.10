@@ -48,4 +48,13 @@ class PhotoViewController: UIViewController {
         sender.view?.removeFromSuperview()
     }
     
+    @IBAction func saveButtonPressed(_ sender: Any) {
+       
+        guard let image = imageView.image else { return }
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+    }
+    
+    
+    
 }

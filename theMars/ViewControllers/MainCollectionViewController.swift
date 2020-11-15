@@ -93,6 +93,8 @@ extension MainCollectionViewController: ResultsDidLoadDelegate {
     func updateList(photos: [RoverPhoto], filter: RoverFilter) {
         DispatchQueue.main.async {
             
+            self.title = filter.description
+            
             if photos.count == 0 {
                 self.alert(title: "Нет фото",
                         message: "\(filter.roverType) на дату \(filter.date) не содержит данных!"
