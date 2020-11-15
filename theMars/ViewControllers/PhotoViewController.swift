@@ -56,21 +56,8 @@ class PhotoViewController: UIViewController {
     }
     
     @objc func imageSaved(image:UIImage,didFinishSavingWithError error:Error,contextInfo:UnsafeMutableRawPointer?){
-        self.alert(title:"Успешно сохранено", message: "");
+        self.showAlert(title:"Успешно сохранено", message: "");
     }
     
     
-}
-
-
-extension PhotoViewController {
-    func alert(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-
-        self.present(alert, animated: true)
-        
-    }
 }

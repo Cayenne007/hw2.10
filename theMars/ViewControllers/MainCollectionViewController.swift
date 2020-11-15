@@ -7,18 +7,18 @@
 
 import UIKit
 
-protocol ResultsDidLoadDelegate {
-    func updateList(photos: [RoverPhoto], filter: RoverFilter)
-    func startAnimateLoadingProcess()
-    func stopAnimateLoadingProcess()
-}
 
+protocol UpdateListDelegate{
+    var filter: RoverFilter { get set }
+    var activityView: UIActivityIndicatorView {get set}
+    func updateList(_ newPhotos: [RoverPhoto])
+}
 
 class MainCollectionViewController: UICollectionViewController {
 
     
     var photos: [RoverPhoto] = []
-    let activityView = UIActivityIndicatorView(style: .large)
+    var activityView = UIActivityIndicatorView(style: .large)
     
     var filter = RoverFilter.getDefault()
     
@@ -26,12 +26,11 @@ class MainCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        activityView.startAnimating()
-        activityView.hidesWhenStopped = true
-        view.addSubview(activityView)
-        activityView.center = view.center
+        setupViewController()
         
-        NetworkManager.loadData(filter: filter, delegate: self)
+        NetworkManager.loadData(filter: filter) { (photos) in
+            self.updateList(photos)
+        }
     }
     
     
@@ -71,6 +70,14 @@ class MainCollectionViewController: UICollectionViewController {
         }
     
     }
+    
+    private func setupViewController() {
+        activityView.startAnimating()
+        activityView.hidesWhenStopped = true
+        view.addSubview(activityView)
+        activityView.center = view.center
+    }
+    
 }
 
 
@@ -80,46 +87,21 @@ extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension MainCollectionViewController: ResultsDidLoadDelegate {
-    func startAnimateLoadingProcess() {
-        activityView.startAnimating()
-    }
+extension MainCollectionViewController: UpdateListDelegate {
+    func updateList(_ newPhotos: [RoverPhoto]) {
     
-    func stopAnimateLoadingProcess() {
-        activityView.stopAnimating()
-    }
-    
-    
-    func updateList(photos: [RoverPhoto], filter: RoverFilter) {
-        DispatchQueue.main.async {
-            
-            self.title = filter.description
-            
-            if photos.count == 0 {
-                self.alert(title: "Нет фото",
-                        message: "\(filter.roverType) на дату \(filter.date) не содержит данных!"
-                )
-            }
-            self.photos = photos
-            self.filter = filter
-            
-            self.activityView.stopAnimating()
-            self.collectionView.reloadData()
+        photos = newPhotos
+        
+        title = filter.description
+        
+        if photos.count == 0 {
+            showAlert(title: "Нет фото",
+                           message: "\(filter.roverType) на дату \(filter.date) не содержит данных!"
+            )
         }
-    }
-    
-    
-}
 
-
-extension MainCollectionViewController {
-    func alert(title: String, message: String) {
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-
-        self.present(alert, animated: true)
-        
+        activityView.stopAnimating()
+        collectionView.reloadData()
     }
 }
+

@@ -14,15 +14,14 @@ class FilterViewController: UIViewController {
     @IBOutlet var photoDatePicker: UIDatePicker!
     @IBOutlet var roverInfoLabel: UILabel!
     
-    
-    
-    var delegate: ResultsDidLoadDelegate!
+    var delegate: UpdateListDelegate!
     var filter: RoverFilter!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setElements()
+        setupViewController()
         
     }
     
@@ -36,8 +35,11 @@ class FilterViewController: UIViewController {
         filter.roverType = RoverType.allCases[roverTypeSegmentControl.selectedSegmentIndex]
         filter.date = photoDatePicker.date.toString
         
-        delegate.startAnimateLoadingProcess()
-        NetworkManager.loadData(filter: filter, delegate: delegate)
+        delegate.activityView.startAnimating()
+        NetworkManager.loadData(filter: filter) { (photos) in
+            self.delegate.filter = self.filter
+            self.delegate.updateList(photos)
+        }
         dismiss(animated: true, completion: nil)
         
     }
@@ -49,7 +51,7 @@ class FilterViewController: UIViewController {
         
     }
     
-    private func setElements() {
+    private func setupViewController() {
         
         roverTypeSegmentControl.removeAllSegments()
         for index in 0 ... RoverType.allCases.count-1 {
