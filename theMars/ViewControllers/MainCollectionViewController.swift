@@ -83,7 +83,10 @@ class MainCollectionViewController: UICollectionViewController {
 
 extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: UIScreen.main.bounds.width - 10, height: 250)
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        return CGSize(width: (screenWidth/4)-6, height: (screenWidth/4)-6)
+            
     }
 }
 
@@ -94,12 +97,6 @@ extension MainCollectionViewController: UpdateListDelegate {
         
         title = filter.description
         
-        if photos.count == 0 {
-            showAlert(title: "Нет фото",
-                           message: "\(filter.roverType) на дату \(filter.date) не содержит данных!"
-            )
-        }
-
         activityView.stopAnimating()
         collectionView.reloadData()
     }

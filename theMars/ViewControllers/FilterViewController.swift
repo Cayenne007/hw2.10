@@ -14,6 +14,7 @@ class FilterViewController: UIViewController {
     @IBOutlet var photoDatePicker: UIDatePicker!
     @IBOutlet var roverInfoLabel: UILabel!
     
+    
     var delegate: UpdateListDelegate!
     var filter: RoverFilter!
     
@@ -35,12 +36,20 @@ class FilterViewController: UIViewController {
         filter.roverType = RoverType.allCases[roverTypeSegmentControl.selectedSegmentIndex]
         filter.date = photoDatePicker.date.toString
         
-        delegate.activityView.startAnimating()
         NetworkManager.loadData(filter: filter) { (photos) in
+            
+            if photos.count == 0 {
+                self.showAlert(title: "Нет данных", message: "В этот день не было данных от ровера. Попробуйте выбрать другой день...")
+                return
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+
+            self.delegate.activityView.startAnimating()
+            
             self.delegate.filter = self.filter
             self.delegate.updateList(photos)
         }
-        dismiss(animated: true, completion: nil)
         
     }
     
@@ -51,6 +60,17 @@ class FilterViewController: UIViewController {
         
     }
     
+    @IBAction func dateStepperChanged(_ sender: UIStepper) {
+        
+        if sender.value == 1 {
+            photoDatePicker.date = photoDatePicker.date.plus()
+        } else {
+            photoDatePicker.date = photoDatePicker.date.plus(-1)
+        }
+        sender.value = 0
+    }
+    
+   
     private func setupViewController() {
         
         roverTypeSegmentControl.removeAllSegments()
@@ -59,6 +79,7 @@ class FilterViewController: UIViewController {
         }
         roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
         photoDatePicker.date = filter.date.toDate ?? Date()
+        photoDatePicker.locale = Locale(identifier: "ru_RU")
     }
     
     private func setRoverInfo(setDate: Bool = true) {

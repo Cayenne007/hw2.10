@@ -16,7 +16,7 @@ struct RoverFilter {
     }
     
     static func getDefault() -> RoverFilter {
-        RoverFilter(roverType: .curiosity, date: "2015-6-1")
+        RoverFilter(roverType: .curiosity, date: "2014-8-14")
     }
     
 }

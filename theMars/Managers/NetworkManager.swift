@@ -101,6 +101,7 @@ struct NetworkManager {
         }
     }
     
+    
     static func getRoverInfo(filter: RoverFilter, completionHandler: @escaping (RoverInfo) -> ()) {
         
         let strUrl = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
