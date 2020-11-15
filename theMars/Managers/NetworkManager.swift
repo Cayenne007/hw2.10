@@ -104,33 +104,38 @@ struct NetworkManager {
     
     static func getRoverInfo(filter: RoverFilter, completionHandler: @escaping (RoverInfo) -> ()) {
         
-        let strUrl = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
-  
-        guard let url = URL(string: strUrl) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-        
-            if let error = error {
-                print(error)
-                return
-            }
+        DispatchQueue.global().async {
+            let strUrl = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
             
-            guard let data = data else {
-                print("data has an incorrect structure")
-                return
-            }
+            guard let url = URL(string: strUrl) else { return }
             
-            do {
-                let roverInfoManifest = try JSONDecoder().decode(RoverManifest.self, from: data)
-                let roverInfo = roverInfoManifest.photo_manifest
+            URLSession.shared.dataTask(with: url) { (data, _, error) in
                 
-                completionHandler(roverInfo)
-            } catch {
-                print(error)
-            }
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                guard let data = data else {
+                    print("data has an incorrect structure")
+                    return
+                }
+                
+                do {
+                    let roverInfoManifest = try JSONDecoder().decode(RoverManifest.self, from: data)
+                    let roverInfo = roverInfoManifest.photo_manifest
+                    
+                    DispatchQueue.main.async {
+                        completionHandler(roverInfo)
+                    }
         
-            
-        }.resume()
+                } catch {
+                    print(error)
+                }
+                
+                
+            }.resume()
+        }
 
     }
     

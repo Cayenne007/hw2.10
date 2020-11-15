@@ -36,19 +36,20 @@ class FilterViewController: UIViewController {
         filter.roverType = RoverType.allCases[roverTypeSegmentControl.selectedSegmentIndex]
         filter.date = photoDatePicker.date.toString
         
+        delegate.activityView.startAnimating()
         NetworkManager.loadData(filter: filter) { (photos) in
             
             if photos.count == 0 {
                 self.showAlert(title: "Нет данных", message: "В этот день не было данных от ровера. Попробуйте выбрать другой день...")
+                self.delegate.activityView.stopAnimating()
                 return
             }
             
-            self.dismiss(animated: true, completion: nil)
-
-            self.delegate.activityView.startAnimating()
-            
             self.delegate.filter = self.filter
             self.delegate.updateList(photos)
+            
+            self.dismiss(animated: true, completion: nil)
+            
         }
         
     }
@@ -83,17 +84,15 @@ class FilterViewController: UIViewController {
     }
     
     private func setRoverInfo(setDate: Bool = true) {
-        DispatchQueue.global().async {
-            NetworkManager.getRoverInfo(filter: self.filter) { (roverInfo) in
-                DispatchQueue.main.async {
-                    self.roverInfoLabel.text = roverInfo.info
-                    
-                    if setDate, let date = roverInfo.max_date.toDate {
-                        self.photoDatePicker.date = date
-                    }
-                }
+        
+        NetworkManager.getRoverInfo(filter: self.filter) { (roverInfo) in
+            self.roverInfoLabel.text = roverInfo.info
+            
+            if setDate, let date = roverInfo.max_date.toDate {
+                self.photoDatePicker.date = date
             }
         }
+        
     }
     
 

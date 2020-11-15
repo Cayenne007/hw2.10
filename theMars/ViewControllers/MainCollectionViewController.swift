@@ -96,9 +96,9 @@ extension MainCollectionViewController: UpdateListDelegate {
         photos = newPhotos
         
         title = filter.description
+        collectionView.reloadData()
         
         activityView.stopAnimating()
-        collectionView.reloadData()
     }
 }
 
