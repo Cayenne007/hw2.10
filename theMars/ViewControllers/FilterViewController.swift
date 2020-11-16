@@ -45,10 +45,10 @@ class FilterViewController: UIViewController {
                 return
             }
             
+            self.dismiss(animated: true, completion: nil)
+            
             self.delegate.filter = self.filter
             self.delegate.updateList(photos)
-            
-            self.dismiss(animated: true, completion: nil)
             
         }
         
