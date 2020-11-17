@@ -30,6 +30,20 @@ class FilterButton: UIButton {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    func pulsate() {
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.fromValue = 0.8
+        pulse.toValue = 1
+        pulse.duration = 0.6
+        pulse.autoreverses = true
+        pulse.repeatCount = 2
+        pulse.initialVelocity = 0.9
+        pulse.damping = 1
+        
+        layer.add(pulse, forKey: nil)
+    }
 
 }
 

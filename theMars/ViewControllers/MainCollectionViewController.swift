@@ -11,7 +11,7 @@ import UIKit
 class MainCollectionViewController: UICollectionViewController {
 
     var activityView = UIActivityIndicatorView(style: .large)
-    var roundButton = FilterButton(systemName: "magnifyingglass")
+    var filterButton = FilterButton(systemName: "magnifyingglass")
     
     var filter = RoverFilter.getDefault()
     var photos: [RoverPhoto] = []
@@ -31,6 +31,7 @@ class MainCollectionViewController: UICollectionViewController {
         super.viewWillLayoutSubviews()
         filterButtonSetConstraint()
     }
+    
     
     // MARK: UICollectionViewDataSource
 
@@ -75,16 +76,16 @@ class MainCollectionViewController: UICollectionViewController {
         view.addSubview(activityView)
         activityView.center = view.center
         
-        roundButton.addTarget(self, action: #selector(filterButtonClick(_:)), for: UIControl.Event.touchUpInside)
-        view.addSubview(roundButton)
+        filterButton.addTarget(self, action: #selector(filterButtonClick(_:)), for: UIControl.Event.touchUpInside)
+        view.addSubview(filterButton)
     }
     
     private func filterButtonSetConstraint() {
 
-        NSLayoutConstraint.activate([roundButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
-                                     roundButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
-                                     roundButton.widthAnchor.constraint(equalToConstant: 50),
-                                     roundButton.heightAnchor.constraint(equalToConstant: 50)])
+        NSLayoutConstraint.activate([filterButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+                                     filterButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
+                                     filterButton.widthAnchor.constraint(equalToConstant: 50),
+                                     filterButton.heightAnchor.constraint(equalToConstant: 50)])
 
         
     }
@@ -123,6 +124,7 @@ extension MainCollectionViewController: UpdateListDelegate {
         collectionView.reloadData()
         
         activityView.stopAnimating()
+        filterButton.pulsate()
     }
 }
 

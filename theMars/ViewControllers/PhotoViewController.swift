@@ -17,9 +17,6 @@ class PhotoViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        let pictureTap = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
-        imageView.addGestureRecognizer(pictureTap)
         
         infoLabel.text = photo.description
         
@@ -27,26 +24,6 @@ class PhotoViewController: UIViewController {
         
     }
     
-
-    @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
-        let imageView = sender.view as! UIImageView
-        let newImageView = UIImageView(image: imageView.image)
-        newImageView.frame = UIScreen.main.bounds
-        newImageView.backgroundColor = .black
-        newImageView.contentMode = .scaleAspectFit
-        newImageView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
-        newImageView.addGestureRecognizer(tap)
-        self.view.addSubview(newImageView)
-        self.navigationController?.isNavigationBarHidden = true
-        self.tabBarController?.tabBar.isHidden = true
-    }
-
-    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
-        self.navigationController?.isNavigationBarHidden = false
-        self.tabBarController?.tabBar.isHidden = false
-        sender.view?.removeFromSuperview()
-    }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
        
@@ -56,7 +33,7 @@ class PhotoViewController: UIViewController {
     }
     
     @objc func imageSaved(image:UIImage,didFinishSavingWithError error:Error,contextInfo:UnsafeMutableRawPointer?){
-        self.showAlert(title:"Успешно сохранено", message: "");
+        showAlert(title:"Успешно сохранено", message: "");
     }
     
     

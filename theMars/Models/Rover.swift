@@ -25,8 +25,8 @@ struct RoverPhoto: Decodable {
     init(with data: [String : Any]) {
         sol = data["sol"] as? Int ?? 0
         camera = RoverCamera(with: data["camera"])
-        imageUrl = data["img_src"] as? String ?? ""
-        earthDate = data["earth_date"] as? String ?? ""
+        imageUrl = data["img_src"] as? String ?? "N/A"
+        earthDate = data["earth_date"] as? String ?? "N/A"
         rover = Rover(with: data["rover"])
         
     }

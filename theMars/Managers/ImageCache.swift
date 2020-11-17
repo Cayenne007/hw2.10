@@ -9,7 +9,7 @@ import UIKit
 
 class ImageCache {
     
-    private var list: [String: UIImage] = [:]
+    var list: [String: UIImage] = [:]
     
     static var shared = ImageCache()
     
