@@ -33,6 +33,7 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fd9-1U-UXK">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -188,7 +189,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CCc-gx-qJq">
-                                <rect key="frame" x="0.0" y="140" width="414" height="756"/>
+                                <rect key="frame" x="0.0" y="148" width="414" height="748"/>
                                 <gestureRecognizers/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uju-bG-0g3">
@@ -197,17 +198,17 @@
                                     <constraint firstAttribute="height" constant="100" id="K7S-db-629"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lSJ-df-Eul"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="CCc-gx-qJq" firstAttribute="leading" secondItem="lSJ-df-Eul" secondAttribute="leading" id="3ke-jF-bov"/>
                             <constraint firstItem="lSJ-df-Eul" firstAttribute="trailing" secondItem="CCc-gx-qJq" secondAttribute="trailing" id="FOF-NT-ELD"/>
                             <constraint firstItem="uju-bG-0g3" firstAttribute="leading" secondItem="lSJ-df-Eul" secondAttribute="leading" constant="16" id="Fl3-X5-qKp"/>
-                            <constraint firstItem="CCc-gx-qJq" firstAttribute="top" secondItem="lSJ-df-Eul" secondAttribute="top" id="LTp-gQ-Hve"/>
+                            <constraint firstItem="CCc-gx-qJq" firstAttribute="top" secondItem="lSJ-df-Eul" secondAttribute="top" constant="8" id="LTp-gQ-Hve"/>
                             <constraint firstItem="uju-bG-0g3" firstAttribute="top" secondItem="lSJ-df-Eul" secondAttribute="top" constant="20" id="jeB-Hb-zAO"/>
                             <constraint firstAttribute="bottom" secondItem="CCc-gx-qJq" secondAttribute="bottom" id="r9v-bz-nnR"/>
                             <constraint firstItem="lSJ-df-Eul" firstAttribute="trailing" secondItem="uju-bG-0g3" secondAttribute="trailing" constant="16" id="zfz-0f-tQ0"/>
