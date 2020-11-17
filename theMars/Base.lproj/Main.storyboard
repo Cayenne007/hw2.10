@@ -126,6 +126,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="150" id="7nG-X5-yFb"/>
                                                 </constraints>
+                                                <locale key="locale" localeIdentifier="ru_RU"/>
                                             </datePicker>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-1" maximumValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RT8-cM-cg8">
                                                 <rect key="frame" x="242" y="0.0" width="94" height="34.5"/>
@@ -145,21 +146,30 @@
                                     <action selector="confirmNewFilter" destination="GZf-Sj-2Xh" eventType="touchUpInside" id="iu9-OQ-xTY"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Картинок в кеш: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZD-aY-Ixc">
+                                <rect key="frame" x="142.5" y="767.5" width="129" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NYc-DU-06s"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="uOK-R4-3jG" firstAttribute="leading" secondItem="NYc-DU-06s" secondAttribute="leading" constant="16" id="9UW-UN-wmR"/>
+                            <constraint firstItem="NYc-DU-06s" firstAttribute="bottom" secondItem="eZD-aY-Ixc" secondAttribute="bottom" constant="20" id="CSi-fK-uMw"/>
                             <constraint firstItem="uOK-R4-3jG" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="100" id="DOn-0x-iZv"/>
                             <constraint firstItem="oR1-rD-zJk" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="20" id="Fey-n8-13F"/>
                             <constraint firstItem="oR1-rD-zJk" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Ll0-XV-0md"/>
                             <constraint firstItem="DV3-cO-gnw" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Myc-LA-Faw"/>
                             <constraint firstItem="NYc-DU-06s" firstAttribute="trailing" secondItem="uOK-R4-3jG" secondAttribute="trailing" constant="16" id="WGx-nz-p4T"/>
+                            <constraint firstItem="eZD-aY-Ixc" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="lun-rs-Llc"/>
                             <constraint firstItem="DV3-cO-gnw" firstAttribute="top" secondItem="uOK-R4-3jG" secondAttribute="bottom" constant="50" id="zCJ-1R-h3y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Фильтр" id="owb-Uq-knz"/>
                     <connections>
+                        <outlet property="cacheLabel" destination="eZD-aY-Ixc" id="hv4-Pn-pKQ"/>
                         <outlet property="photoDatePicker" destination="zsr-ZU-gKG" id="4eG-0M-jxl"/>
                         <outlet property="roverInfoLabel" destination="KH2-fb-6gE" id="XoY-yK-Hen"/>
                         <outlet property="roverTypeSegmentControl" destination="bEO-LV-3V1" id="9VK-wv-CbZ"/>

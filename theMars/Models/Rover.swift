@@ -8,8 +8,8 @@
 struct RoverPhoto: Decodable {
     let sol: Int
     let camera: RoverCamera
-    let img_src: String
-    let earth_date: String  //YYYY-MM-DD
+    let imageUrl: String
+    let earthDate: String  //YYYY-MM-DD
     let rover: Rover
     
     
@@ -17,7 +17,7 @@ struct RoverPhoto: Decodable {
         """
         camera: \(camera.name)
         sol: \(sol)
-        date: \(earth_date)
+        date: \(earthDate)
         rover: \(rover.name)
         """
     }
@@ -25,8 +25,8 @@ struct RoverPhoto: Decodable {
     init(with data: [String : Any]) {
         sol = data["sol"] as? Int ?? 0
         camera = RoverCamera(with: data["camera"])
-        img_src = data["img_src"] as? String ?? ""
-        earth_date = data["earth_date"] as? String ?? ""
+        imageUrl = data["img_src"] as? String ?? ""
+        earthDate = data["earth_date"] as? String ?? ""
         rover = Rover(with: data["rover"])
         
     }

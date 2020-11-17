@@ -6,27 +6,27 @@
 // 
 
 struct RoverInfo: Decodable {
-    let launch_date: String
+    let launchDate: String
     let status: String
-    let max_sol: Int
-    let max_date: String
-    let total_photos: Int
+    let maxSol: Int
+    let maxDate: String
+    let totalPhotos: Int
     
     var info: String {
         """
             Статус: \(status)
-            Начало миссии: \(launch_date)
-            Последняя активность: \(max_date)
-            Всего фото: \(total_photos)
+            Начало миссии: \(launchDate)
+            Последняя активность: \(maxDate)
+            Всего фото: \(totalPhotos)
         """
     }
     
     init(with data: [String : Any]) {
-        launch_date = data["launch_date"] as? String ?? "N/A"
+        launchDate = data["launch_date"] as? String ?? "N/A"
         status = data["status"] as? String ?? "N/A"
-        max_sol = data["max_sol"] as? Int ?? 0
-        max_date = data["max_date"] as? String ?? "N/A"
-        total_photos = data["total_photos"] as? Int ?? 0
+        maxSol = data["max_sol"] as? Int ?? 0
+        maxDate = data["max_date"] as? String ?? "N/A"
+        totalPhotos = data["total_photos"] as? Int ?? 0
     }
 }
 

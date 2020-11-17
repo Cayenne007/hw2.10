@@ -24,4 +24,8 @@ class ImageCache {
         ImageCache.shared.list[url] = image
     }
     
+    func count() -> Int {
+        ImageCache.shared.list.count
+    }
+    
 }

@@ -13,6 +13,7 @@ class FilterViewController: UIViewController {
     @IBOutlet var roverTypeSegmentControl: UISegmentedControl!
     @IBOutlet var photoDatePicker: UIDatePicker!
     @IBOutlet var roverInfoLabel: UILabel!
+    @IBOutlet var cacheLabel: UILabel!
     
     
     var delegate: UpdateListDelegate!
@@ -23,7 +24,6 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
 
         setupViewController()
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -80,7 +80,8 @@ class FilterViewController: UIViewController {
         }
         roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
         photoDatePicker.date = filter.date.toDate ?? Date()
-        photoDatePicker.locale = Locale(identifier: "ru_RU")
+        
+        cacheLabel.text = "Картинок в кеш: \(ImageCache.shared.count())"
     
     }
     
@@ -89,7 +90,7 @@ class FilterViewController: UIViewController {
         NetworkManager.getRoverInfo(filter: self.filter) { (roverInfo) in
             self.roverInfoLabel.text = roverInfo.info
             
-            if setDate, let date = roverInfo.max_date.toDate {
+            if setDate, let date = roverInfo.maxDate.toDate {
                 self.photoDatePicker.date = date
             }
         }

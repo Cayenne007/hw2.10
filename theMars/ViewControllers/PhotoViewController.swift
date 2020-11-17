@@ -23,7 +23,7 @@ class PhotoViewController: UIViewController {
         
         infoLabel.text = photo.description
         
-        self.imageView.image = ImageCache.shared.load(photo.img_src)
+        self.imageView.image = ImageCache.shared.load(photo.imageUrl)
         
     }
     

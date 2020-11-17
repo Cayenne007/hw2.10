@@ -19,7 +19,7 @@ class MainCollectionViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         imageView.image = nil
         
-        NetworkManager.fetchImage(url: photo.img_src) { (image) in
+        NetworkManager.fetchImage(url: photo.imageUrl) { (image) in
             self.imageView.image = image
         }
         
