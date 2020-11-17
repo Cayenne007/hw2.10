@@ -5,136 +5,67 @@
 //  Created by Cayenne on 14.11.2020.
 //
 
-import UIKit
+import Alamofire
 
 struct NetworkManager {
     
-//    static func loadData(filter: RoverFilter, delegate: ResultsDidLoadDelegate) {
-//        
-//        let strUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/\(filter.roverType)/photos?earth_date=\(filter.date)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
-//  
-//        guard let url = URL(string: strUrl) else { return }
-//        
-//        URLSession.shared.dataTask(with: url) { (data, _, error) in
-//        
-//            if let error = error {
-//                print(error)
-//                return
-//            }
-//            
-//            guard let data = data else {
-//                print("data has an incorrect structure")
-//                return
-//            }
-//            
-//            do {
-//                let photos = try JSONDecoder().decode(RoverData.self, from: data)
-//                delegate.updateList(photos: photos.photos, filter: filter)
-//            } catch {
-//                print(error)
-//            }
-//        
-//            
-//        }.resume()
-//    }
-    
-    static func loadData(filter: RoverFilter, completionHandler: @escaping ([RoverPhoto])->()) {
+    static func loadData(filter: RoverFilter, completion: @escaping ([RoverPhoto])->()) {
         
-        let strUrl = "https://api.nasa.gov/mars-photos/api/v1/rovers/\(filter.roverType)/photos?earth_date=\(filter.date)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
-  
-        guard let url = URL(string: strUrl) else { return }
+        let url = "https://api.nasa.gov/mars-photos/api/v1/rovers/\(filter.roverType)/photos?earth_date=\(filter.date)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
         
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-        
-            if let error = error {
-                print(error)
-                return
-            }
+        AF.request(url).validate().responseJSON { (dataResponse) in
+            switch dataResponse.result {
             
-            guard let data = data else {
-                print("data has an incorrect structure")
-                return
-            }
-            
-            do {
-                
-                let photos = try JSONDecoder().decode(RoverData.self, from: data)
+            case .success(let value):
                 
                 DispatchQueue.main.async {
-                    completionHandler(photos.photos)
+                    completion(RoverData.getRoverPhotos(data: value))
                 }
                 
-            } catch {
-                print(error)
+            case .failure(let error): print(error)
             }
-        
-            
-        }.resume()
+        }
+       
     }
     
-    static func fetchImageToImageView(url: String, imageView: UIImageView?) {
+    static func fetchImage(url: String, completion: @escaping (UIImage?)->()) {
         
-        DispatchQueue.global().async {
-            
-            
-            guard let url = URL(string: url) else { return }
-            
-            URLSession.shared.dataTask(with: url) { (data, _, error) in
-                
-                if let error = error {
-                    print(error)
-                    return
+        if let image = ImageCache.shared.load(url) {
+            completion(image)
+            return
+        }
+        
+        AF.request(url).validate().responseData { (dataResponse) in
+            switch dataResponse.result {
+            case .success(_):
+                if let data = dataResponse.data {
+                    let image = UIImage(data: data)
+                    ImageCache.shared.save(url, image)
+                    DispatchQueue.main.async {
+                        completion(image)
+                    }
                 }
-                
-                guard let data = data else {
-                    print("data has an incorrect structure")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    imageView?.image = UIImage(data: data)
-                }
-                
-                
-            }.resume()
+            case .failure(let error): print(error)
+            }
             
         }
+        
     }
     
     
-    static func getRoverInfo(filter: RoverFilter, completionHandler: @escaping (RoverInfo) -> ()) {
+    static func getRoverInfo(filter: RoverFilter, completion: @escaping (RoverInfo) -> ()) {
         
-        DispatchQueue.global().async {
-            let strUrl = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
-            
-            guard let url = URL(string: strUrl) else { return }
-            
-            URLSession.shared.dataTask(with: url) { (data, _, error) in
-                
-                if let error = error {
-                    print(error)
-                    return
-                }
-                
-                guard let data = data else {
-                    print("data has an incorrect structure")
-                    return
-                }
-                
-                do {
-                    let roverInfoManifest = try JSONDecoder().decode(RoverManifest.self, from: data)
-                    let roverInfo = roverInfoManifest.photo_manifest
-                    
-                    DispatchQueue.main.async {
-                        completionHandler(roverInfo)
-                    }
+        let url = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
         
-                } catch {
-                    print(error)
-                }
+        AF.request(url).validate().responseJSON { (dataResponse) in
+            switch dataResponse.result {
+            
+            case .success(let value):
                 
+                completion(RoverManifest.getRoverInfo(data: value))
                 
-            }.resume()
+            case .failure(let error): print(error)
+            }
         }
 
     }

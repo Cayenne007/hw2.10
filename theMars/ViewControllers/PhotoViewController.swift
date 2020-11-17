@@ -22,11 +22,11 @@ class PhotoViewController: UIViewController {
         imageView.addGestureRecognizer(pictureTap)
         
         infoLabel.text = photo.description
+        
+        self.imageView.image = ImageCache.shared.load(photo.img_src)
+        
     }
     
-    override func viewDidLayoutSubviews() {
-        NetworkManager.fetchImageToImageView(url: photo.img_src, imageView: imageView)
-    }
 
     @IBAction func imageTapped(_ sender: UITapGestureRecognizer) {
         let imageView = sender.view as! UIImageView

@@ -20,8 +20,27 @@ struct RoverInfo: Decodable {
             Всего фото: \(total_photos)
         """
     }
+    
+    init(with data: [String : Any]) {
+        launch_date = data["launch_date"] as? String ?? "N/A"
+        status = data["status"] as? String ?? "N/A"
+        max_sol = data["max_sol"] as? Int ?? 0
+        max_date = data["max_date"] as? String ?? "N/A"
+        total_photos = data["total_photos"] as? Int ?? 0
+    }
 }
 
 struct RoverManifest: Decodable {
     let photo_manifest: RoverInfo
+    
+    static func getRoverInfo(data: Any) -> RoverInfo {
+        if let data = data as? [String : [String : Any]],
+           let roverData = data["photo_manifest"]{
+                return RoverInfo(with: roverData)
+        } else {
+            return RoverInfo(with: [:])
+        }
+              
+              
+    }
 }

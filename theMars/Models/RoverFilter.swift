@@ -11,6 +11,7 @@ struct RoverFilter {
     var roverType: RoverType
     var date: String
 
+
     var description: String {
         "\(roverType) \(date)"
     }

@@ -54,16 +54,10 @@
                             <outlet property="delegate" destination="RJf-sM-zch" id="onD-4B-Bad"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Фотографии" id="fbx-Bn-ms2">
-                        <barButtonItem key="rightBarButtonItem" title="Изменить" image="calendar" catalog="system" id="U9E-Jh-Pq7">
-                            <connections>
-                                <action selector="changeSol:" destination="RJf-sM-zch" id="g9e-ib-9dK"/>
-                                <segue destination="GZf-Sj-2Xh" kind="showDetail" id="sb3-c2-thD"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Фотографии" id="fbx-Bn-ms2"/>
                     <connections>
                         <segue destination="z7c-AQ-8CJ" kind="show" identifier="photo" id="7lU-Po-rEz"/>
+                        <segue destination="GZf-Sj-2Xh" kind="showDetail" identifier="filter" id="vnl-dn-VGT"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAv-4O-nkO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -78,6 +72,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фильтр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oR1-rD-zJk">
+                                <rect key="frame" x="149.5" y="20" width="115.5" height="41"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="uOK-R4-3jG">
                                 <rect key="frame" x="16" y="100" width="382" height="278"/>
                                 <subviews>
@@ -112,8 +112,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="ULn-n3-iHT">
-                                        <rect key="frame" x="0.0" y="243.5" width="345" height="34.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="ULn-n3-iHT">
+                                        <rect key="frame" x="0.0" y="243.5" width="336" height="34.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Период:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F1N-fi-Xf0">
                                                 <rect key="frame" x="0.0" y="0.0" width="66" height="34.5"/>
@@ -122,10 +122,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="zsr-ZU-gKG">
-                                                <rect key="frame" x="96" y="0.0" width="125" height="34.5"/>
+                                                <rect key="frame" x="79" y="0.0" width="150" height="34.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="150" id="7nG-X5-yFb"/>
+                                                </constraints>
                                             </datePicker>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-1" maximumValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RT8-cM-cg8">
-                                                <rect key="frame" x="251" y="0.0" width="94" height="34.5"/>
+                                                <rect key="frame" x="242" y="0.0" width="94" height="34.5"/>
                                                 <connections>
                                                     <action selector="dateStepperChanged:" destination="GZf-Sj-2Xh" eventType="valueChanged" id="EUk-rH-Sjz"/>
                                                 </connections>
@@ -142,22 +145,16 @@
                                     <action selector="confirmNewFilter" destination="GZf-Sj-2Xh" eventType="touchUpInside" id="iu9-OQ-xTY"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фильтр" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oR1-rD-zJk">
-                                <rect key="frame" x="149.5" y="20" width="115.5" height="41"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NYc-DU-06s"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="uOK-R4-3jG" firstAttribute="leading" secondItem="NYc-DU-06s" secondAttribute="leading" constant="16" id="9UW-UN-wmR"/>
                             <constraint firstItem="uOK-R4-3jG" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="100" id="DOn-0x-iZv"/>
-                            <constraint firstItem="oR1-rD-zJk" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="DUM-MY-zvV"/>
+                            <constraint firstItem="oR1-rD-zJk" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="20" id="Fey-n8-13F"/>
+                            <constraint firstItem="oR1-rD-zJk" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Ll0-XV-0md"/>
                             <constraint firstItem="DV3-cO-gnw" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Myc-LA-Faw"/>
                             <constraint firstItem="NYc-DU-06s" firstAttribute="trailing" secondItem="uOK-R4-3jG" secondAttribute="trailing" constant="16" id="WGx-nz-p4T"/>
-                            <constraint firstItem="oR1-rD-zJk" firstAttribute="top" secondItem="NYc-DU-06s" secondAttribute="top" constant="20" id="hmZ-9v-8Ai"/>
                             <constraint firstItem="DV3-cO-gnw" firstAttribute="top" secondItem="uOK-R4-3jG" secondAttribute="bottom" constant="50" id="zCJ-1R-h3y"/>
                         </constraints>
                     </view>
@@ -242,7 +239,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="calendar" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

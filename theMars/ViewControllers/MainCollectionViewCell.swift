@@ -13,12 +13,15 @@ class MainCollectionViewCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     
     
-    func setData(photo: RoverPhoto) {
+    func setData(photo: RoverPhoto, item: Int) {
         
         self.imageView.contentMode = .scaleAspectFill
-        self.imageView.clipsToBounds = true
+        imageView.clipsToBounds = true
+        imageView.image = nil
         
-        NetworkManager.fetchImageToImageView(url: photo.img_src, imageView: imageView)
+        NetworkManager.fetchImage(url: photo.img_src) { (image) in
+            self.imageView.image = image
+        }
         
     }
 }

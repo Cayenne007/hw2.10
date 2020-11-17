@@ -8,19 +8,13 @@
 import UIKit
 
 
-protocol UpdateListDelegate{
-    var filter: RoverFilter { get set }
-    var activityView: UIActivityIndicatorView {get set}
-    func updateList(_ newPhotos: [RoverPhoto])
-}
-
 class MainCollectionViewController: UICollectionViewController {
 
-    
-    var photos: [RoverPhoto] = []
     var activityView = UIActivityIndicatorView(style: .large)
+    var roundButton = FilterButton(systemName: "magnifyingglass")
     
     var filter = RoverFilter.getDefault()
+    var photos: [RoverPhoto] = []
     
     
     override func viewDidLoad() {
@@ -33,6 +27,10 @@ class MainCollectionViewController: UICollectionViewController {
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        filterButtonSetConstraint()
+    }
     
     // MARK: UICollectionViewDataSource
 
@@ -49,14 +47,14 @@ class MainCollectionViewController: UICollectionViewController {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MainCollectionViewCell
         let photo = photos[indexPath.item]
-       
-        cell.setData(photo: photo)
+        
+        cell.setData(photo: photo, item: indexPath.item)
     
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "photo", sender: photos[indexPath.item]) //как картинку отправить?
+        performSegue(withIdentifier: "photo", sender: photos[indexPath.item]) 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -76,6 +74,25 @@ class MainCollectionViewController: UICollectionViewController {
         activityView.hidesWhenStopped = true
         view.addSubview(activityView)
         activityView.center = view.center
+        
+        roundButton.addTarget(self, action: #selector(filterButtonClick(_:)), for: UIControl.Event.touchUpInside)
+        view.addSubview(roundButton)
+    }
+    
+    private func filterButtonSetConstraint() {
+
+        NSLayoutConstraint.activate([roundButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+                                     roundButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
+                                     roundButton.widthAnchor.constraint(equalToConstant: 50),
+                                     roundButton.heightAnchor.constraint(equalToConstant: 50)])
+
+        
+    }
+    
+    @IBAction func filterButtonClick(_ sender: UIButton){
+
+        performSegue(withIdentifier: "filter", sender: nil)
+
     }
     
 }
@@ -88,6 +105,13 @@ extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: (screenWidth/4)-6, height: (screenWidth/4)-6)
             
     }
+}
+
+
+protocol UpdateListDelegate{
+    var filter: RoverFilter { get set }
+    var activityView: UIActivityIndicatorView {get set}
+    func updateList(_ newPhotos: [RoverPhoto])
 }
 
 extension MainCollectionViewController: UpdateListDelegate {

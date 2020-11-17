@@ -81,6 +81,7 @@ class FilterViewController: UIViewController {
         roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
         photoDatePicker.date = filter.date.toDate ?? Date()
         photoDatePicker.locale = Locale(identifier: "ru_RU")
+    
     }
     
     private func setRoverInfo(setDate: Bool = true) {
