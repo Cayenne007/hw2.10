@@ -148,12 +148,12 @@
 			children = (
 				AB611EFE255FCE920075AC11 /* AppDelegate.swift */,
 				AB611F00255FCE920075AC11 /* SceneDelegate.swift */,
-				AB611F04255FCE920075AC11 /* Main.storyboard */,
 				AB12C61A2560556E007AE033 /* Extensions */,
 				AB12C61B2560557D007AE033 /* Managers */,
 				AB12C6192560555E007AE033 /* Models */,
 				AB60BF8F25658D5200E0155A /* UI */,
 				AB12C6172560554A007AE033 /* ViewControllers */,
+				AB611F04255FCE920075AC11 /* Main.storyboard */,
 				AB611F07255FCE950075AC11 /* Assets.xcassets */,
 				AB611F1A255FCFC70075AC11 /* theMars.jpg */,
 				AB611F09255FCE950075AC11 /* LaunchScreen.storyboard */,

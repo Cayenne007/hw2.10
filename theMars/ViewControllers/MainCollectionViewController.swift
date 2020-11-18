@@ -60,14 +60,14 @@ class MainCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "photo", sender: photos[indexPath.item]) 
+        performSegue(withIdentifier: "photo", sender: indexPath.item)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let photoVC = segue.destination as? PhotoViewController {
-            guard let photo = sender as? RoverPhoto else { return }
-            photoVC.photo = photo
+            photoVC.photos = photos
+            photoVC.photoIndex = sender as? Int ?? 0
         } else if let filterVC = segue.destination as? FilterViewController {
             filterVC.filter = filter
             filterVC.delegate = self
