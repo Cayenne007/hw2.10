@@ -24,7 +24,12 @@ class FilterButton: UIButton {
         imageView?.alpha = 0
         
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = UIColor.red.withAlphaComponent(0.8)
+        
+        if systemName == "magnifyingglass" {
+            backgroundColor = UIColor.gray.withAlphaComponent(0.9)
+        } else {
+            backgroundColor = UIColor.gray.withAlphaComponent(0.8)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

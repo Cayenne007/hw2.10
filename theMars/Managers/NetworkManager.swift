@@ -11,6 +11,8 @@ struct NetworkManager {
     
     static func loadData(filter: RoverFilter, completion: @escaping ([RoverPhoto])->()) {
         
+        ImageCache.shared.list.removeAll()
+        
         let url = "https://api.nasa.gov/mars-photos/api/v1/rovers/\(filter.roverType)/photos?earth_date=\(filter.date)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
         
         AF.request(url).validate().responseJSON { (dataResponse) in

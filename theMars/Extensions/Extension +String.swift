@@ -13,4 +13,14 @@ extension String {
         dateFormatter.dateFormat = "yyyy-M-d"
         return dateFormatter.date(from: self)
     }
+    func plus(_ value: Int = 1) -> String {
+        var dayComponent    = DateComponents()
+        dayComponent.day    = value
+        let theCalendar     = Calendar.current
+        let date            = self.toDate ?? Date()
+        
+        let newDate         = theCalendar.date(byAdding: dayComponent, to: date) ?? Date()
+        
+        return newDate.toString
+    }
 }

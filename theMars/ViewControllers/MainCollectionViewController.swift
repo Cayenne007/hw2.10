@@ -11,10 +11,15 @@ import UIKit
 class MainCollectionViewController: UICollectionViewController {
 
     var activityView = UIActivityIndicatorView(style: .large)
-    var filterButton = FilterButton(systemName: "magnifyingglass")
+    
+    let dayBackwardButton = FilterButton(systemName: "backward")
+    let filterButton = FilterButton(systemName: "magnifyingglass")
+    let dayForwardButton = FilterButton(systemName: "forward")
     
     var filter = RoverFilter.getDefault()
     var photos: [RoverPhoto] = []
+    
+    var previousContentOffset: CGFloat = 0
     
     
     override func viewDidLoad() {
@@ -76,18 +81,49 @@ class MainCollectionViewController: UICollectionViewController {
         view.addSubview(activityView)
         activityView.center = view.center
         
-        filterButton.addTarget(self, action: #selector(filterButtonClick(_:)), for: UIControl.Event.touchUpInside)
+        view.addSubview(dayBackwardButton)
+        dayBackwardButton.addTarget(self, action: #selector(dayChangingButtonsClick(_:)), for: UIControl.Event.touchUpInside)
         view.addSubview(filterButton)
+        filterButton.addTarget(self, action: #selector(filterButtonClick(_:)), for: UIControl.Event.touchUpInside)
+        view.addSubview(dayForwardButton)
+        dayForwardButton.addTarget(self, action: #selector(dayChangingButtonsClick(_:)), for: UIControl.Event.touchUpInside)
+        dayForwardButton.tag = 1
     }
     
     private func filterButtonSetConstraint() {
 
-        NSLayoutConstraint.activate([filterButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+        let center = -view.frame.size.width / 2 + 25
+        
+        NSLayoutConstraint.activate([dayBackwardButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: center-60),
+                                     dayBackwardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
+                                     dayBackwardButton.widthAnchor.constraint(equalToConstant: 50),
+                                     dayBackwardButton.heightAnchor.constraint(equalToConstant: 50)])
+        
+        NSLayoutConstraint.activate([filterButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: center),
                                      filterButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
                                      filterButton.widthAnchor.constraint(equalToConstant: 50),
                                      filterButton.heightAnchor.constraint(equalToConstant: 50)])
+        
+        
+        NSLayoutConstraint.activate([dayForwardButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: center+60),
+                                     dayForwardButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
+                                     dayForwardButton.widthAnchor.constraint(equalToConstant: 50),
+                                     dayForwardButton.heightAnchor.constraint(equalToConstant: 50)])
 
         
+    }
+    
+    
+    //MARK: Navigation backward-search-forward actions
+    @IBAction func dayChangingButtonsClick(_ sender: UIButton){
+        
+        filter.date = (sender.tag == 0) ? filter.date.plus(-1) : filter.date.plus()
+        activityView.startAnimating()
+        
+        NetworkManager.loadData(filter: filter) { (photos) in
+            self.updateList(photos)
+        }
+
     }
     
     @IBAction func filterButtonClick(_ sender: UIButton){
@@ -95,6 +131,8 @@ class MainCollectionViewController: UICollectionViewController {
         performSegue(withIdentifier: "filter", sender: nil)
 
     }
+        
+
     
 }
 
@@ -117,14 +155,44 @@ protocol UpdateListDelegate{
 
 extension MainCollectionViewController: UpdateListDelegate {
     func updateList(_ newPhotos: [RoverPhoto]) {
-    
+        
         photos = newPhotos
         
         title = filter.description
         collectionView.reloadData()
         
         activityView.stopAnimating()
-        filterButton.pulsate()
+        
     }
 }
 
+
+
+//MARK: UIScrollViewDelegate
+extension MainCollectionViewController {
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentContentOffset = scrollView.contentOffset.y
+        
+        if currentContentOffset < -100 {
+            dayBackwardButton.isHidden = false
+            filterButton.isHidden = false
+            dayForwardButton.isHidden = false
+            return
+        }
+        
+        if currentContentOffset > previousContentOffset {
+            dayBackwardButton.isHidden = true
+            filterButton.isHidden = true
+            dayForwardButton.isHidden = true
+        } else if currentContentOffset < previousContentOffset {
+            dayBackwardButton.isHidden = false
+            filterButton.isHidden = false
+            dayForwardButton.isHidden = false
+        }
+        
+        previousContentOffset = currentContentOffset
+        
+    }
+    
+}

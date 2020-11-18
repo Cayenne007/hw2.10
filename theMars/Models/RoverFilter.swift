@@ -8,6 +8,8 @@
 
 struct RoverFilter {
     
+    static let defaultDate = "2014-8-14"
+    
     var roverType: RoverType
     var date: String
 
@@ -17,7 +19,7 @@ struct RoverFilter {
     }
     
     static func getDefault() -> RoverFilter {
-        RoverFilter(roverType: .curiosity, date: "2014-8-14")
+        RoverFilter(roverType: .curiosity, date: RoverFilter.defaultDate)
     }
     
 }
