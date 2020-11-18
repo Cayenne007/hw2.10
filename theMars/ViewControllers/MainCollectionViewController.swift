@@ -117,6 +117,7 @@ class MainCollectionViewController: UICollectionViewController {
     //MARK: Navigation backward-search-forward actions
     @IBAction func dayChangingButtonsClick(_ sender: FilterButton){
         
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         filter.date = (sender.tag == 0) ? filter.date.plus(-1) : filter.date.plus()
         sender.pulsate()
         activityView.startAnimating()

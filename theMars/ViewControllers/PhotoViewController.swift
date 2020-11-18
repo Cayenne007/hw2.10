@@ -24,9 +24,13 @@ class PhotoViewController: UIViewController {
             if photoIndex < 0 {
                 photoIndex = 0
                 backButton.pulsate()
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
             } else if photoIndex > photos.count-1 {
                 photoIndex = photos.count-1
                 nextButton.pulsate()
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+            } else if isViewLoaded {
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
             }
         }
     }
@@ -59,6 +63,7 @@ class PhotoViewController: UIViewController {
     }
     
     @IBAction func backNextButtonsClick(_ sender: FilterButton) {
+        
         activityView.startAnimating()
         photoIndex = ((sender.tag == 0) ? -1 : 1) + photoIndex
         infoLabel.text = photo.description

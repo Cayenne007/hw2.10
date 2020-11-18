@@ -47,6 +47,8 @@ class FilterViewController: UIViewController {
             
             self.dismiss(animated: true, completion: nil)
             
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            
             self.delegate.filter = self.filter
             self.delegate.updateList(photos)
             
@@ -56,6 +58,7 @@ class FilterViewController: UIViewController {
     
     @IBAction func roverChanged() {
         
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         filter.roverType = RoverType.allCases[roverTypeSegmentControl.selectedSegmentIndex]
         setRoverInfo()
         
