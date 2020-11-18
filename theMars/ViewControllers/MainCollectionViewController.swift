@@ -12,9 +12,9 @@ class MainCollectionViewController: UICollectionViewController {
 
     var activityView = UIActivityIndicatorView(style: .large)
     
-    let dayBackwardButton = FilterButton(systemName: "backward")
+    let dayBackwardButton = FilterButton(systemName: "arrowtriangle.left")
     let filterButton = FilterButton(systemName: "magnifyingglass")
-    let dayForwardButton = FilterButton(systemName: "forward")
+    let dayForwardButton = FilterButton(systemName: "arrowtriangle.right")
     
     var filter = RoverFilter.getDefault()
     var photos: [RoverPhoto] = []
@@ -115,9 +115,10 @@ class MainCollectionViewController: UICollectionViewController {
     
     
     //MARK: Navigation backward-search-forward actions
-    @IBAction func dayChangingButtonsClick(_ sender: UIButton){
+    @IBAction func dayChangingButtonsClick(_ sender: FilterButton){
         
         filter.date = (sender.tag == 0) ? filter.date.plus(-1) : filter.date.plus()
+        sender.pulsate()
         activityView.startAnimating()
         
         NetworkManager.loadData(filter: filter) { (photos) in
@@ -179,7 +180,7 @@ extension MainCollectionViewController {
             filterButton.isHidden = false
             dayForwardButton.isHidden = false
             return
-        }
+        } 
         
         if currentContentOffset > previousContentOffset {
             dayBackwardButton.isHidden = true

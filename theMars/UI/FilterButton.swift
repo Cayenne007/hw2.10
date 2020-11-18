@@ -13,22 +13,21 @@ class FilterButton: UIButton {
     required init(systemName: String) {
         
         super.init(frame: .zero)
-        //super.init(type: .custom)
         
         layer.cornerRadius = 25
         
         clipsToBounds = true
         let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
         setImage(UIImage(systemName: systemName, withConfiguration: boldConfig), for: .normal)
-        imageView?.tintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        imageView?.alpha = 0
         
         translatesAutoresizingMaskIntoConstraints = false
         
         if systemName == "magnifyingglass" {
-            backgroundColor = UIColor.gray.withAlphaComponent(0.9)
+            backgroundColor = UIColor.red.withAlphaComponent(0.6)
+            imageView?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         } else {
-            backgroundColor = UIColor.gray.withAlphaComponent(0.8)
+            backgroundColor = UIColor.red.withAlphaComponent(0.5)
+            imageView?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
 

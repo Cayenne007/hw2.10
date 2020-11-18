@@ -117,6 +117,14 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		AB60BF8F25658D5200E0155A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				ABF137812563F25D00A26ADD /* FilterButton.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		AB611EF2255FCE920075AC11 = {
 			isa = PBXGroup;
 			children = (
@@ -144,8 +152,8 @@
 				AB12C61A2560556E007AE033 /* Extensions */,
 				AB12C61B2560557D007AE033 /* Managers */,
 				AB12C6192560555E007AE033 /* Models */,
+				AB60BF8F25658D5200E0155A /* UI */,
 				AB12C6172560554A007AE033 /* ViewControllers */,
-				ABF137812563F25D00A26ADD /* FilterButton.swift */,
 				AB611F07255FCE950075AC11 /* Assets.xcassets */,
 				AB611F1A255FCFC70075AC11 /* theMars.jpg */,
 				AB611F09255FCE950075AC11 /* LaunchScreen.storyboard */,
