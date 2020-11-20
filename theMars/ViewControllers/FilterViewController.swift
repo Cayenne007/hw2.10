@@ -36,6 +36,8 @@ class FilterViewController: UIViewController {
         filter.roverType = RoverType.allCases[roverTypeSegmentControl.selectedSegmentIndex]
         filter.date = photoDatePicker.date.toString
         
+        AppSettingsManager.standart.saveRoverFilter(filter: filter)
+        
         delegate.activityView.startAnimating()
         NetworkManager.loadData(filter: filter) { (photos) in
             

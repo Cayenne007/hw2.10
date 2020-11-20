@@ -16,7 +16,7 @@ class MainCollectionViewController: UICollectionViewController {
     let filterButton = FilterButton(systemName: "magnifyingglass")
     let dayForwardButton = FilterButton(systemName: "arrowtriangle.right")
     
-    var filter = RoverFilter.getDefault()
+    var filter = AppSettingsManager.standart.loadRoverFilter()
     var photos: [RoverPhoto] = []
     
     var previousContentOffset: CGFloat = 0

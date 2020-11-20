@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6ACF623D4D6147C199B0A9A9 /* Pods_theMars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E59CCA889B8F5EE5623FB1 /* Pods_theMars.framework */; };
+		9F201AE42568062E007800CA /* AppSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F201AE32568062E007800CA /* AppSettingsManager.swift */; };
 		AB12C5FA2560033B007AE033 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C5F92560033B007AE033 /* NetworkManager.swift */; };
 		AB12C60425601646007AE033 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C60325601646007AE033 /* PhotoViewController.swift */; };
 		AB12C60C25604BB8007AE033 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C60B25604BB8007AE033 /* FilterViewController.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		42904DBC6086D60E805D2BA3 /* Pods-theMars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-theMars.debug.xcconfig"; path = "Target Support Files/Pods-theMars/Pods-theMars.debug.xcconfig"; sourceTree = "<group>"; };
+		9F201AE32568062E007800CA /* AppSettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsManager.swift; sourceTree = "<group>"; };
 		AB12C5F92560033B007AE033 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		AB12C60325601646007AE033 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		AB12C60B25604BB8007AE033 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +79,25 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9F201ADF25680417007800CA /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AB611EFE255FCE920075AC11 /* AppDelegate.swift */,
+				AB611F00255FCE920075AC11 /* SceneDelegate.swift */,
+				AB611F0C255FCE950075AC11 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		9F201AE12568044C007800CA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AB611F07255FCE950075AC11 /* Assets.xcassets */,
+				AB611F1A255FCFC70075AC11 /* theMars.jpg */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		AB12C6172560554A007AE033 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +132,7 @@
 		AB12C61B2560557D007AE033 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				9F201AE32568062E007800CA /* AppSettingsManager.swift */,
 				ABF137842563FA3A00A26ADD /* ImageCache.swift */,
 				AB12C5F92560033B007AE033 /* NetworkManager.swift */,
 			);
@@ -146,18 +168,15 @@
 		AB611EFD255FCE920075AC11 /* theMars */ = {
 			isa = PBXGroup;
 			children = (
-				AB611EFE255FCE920075AC11 /* AppDelegate.swift */,
-				AB611F00255FCE920075AC11 /* SceneDelegate.swift */,
+				9F201ADF25680417007800CA /* App */,
 				AB12C61A2560556E007AE033 /* Extensions */,
 				AB12C61B2560557D007AE033 /* Managers */,
 				AB12C6192560555E007AE033 /* Models */,
+				9F201AE12568044C007800CA /* Resources */,
 				AB60BF8F25658D5200E0155A /* UI */,
 				AB12C6172560554A007AE033 /* ViewControllers */,
 				AB611F04255FCE920075AC11 /* Main.storyboard */,
-				AB611F07255FCE950075AC11 /* Assets.xcassets */,
-				AB611F1A255FCFC70075AC11 /* theMars.jpg */,
 				AB611F09255FCE950075AC11 /* LaunchScreen.storyboard */,
-				AB611F0C255FCE950075AC11 /* Info.plist */,
 			);
 			path = theMars;
 			sourceTree = "<group>";
@@ -285,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9F201AE42568062E007800CA /* AppSettingsManager.swift in Sources */,
 				ABF137852563FA3A00A26ADD /* ImageCache.swift in Sources */,
 				AB12C5FA2560033B007AE033 /* NetworkManager.swift in Sources */,
 				AB611EFF255FCE920075AC11 /* AppDelegate.swift in Sources */,
@@ -449,7 +469,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 273Z2JY65J;
-				INFOPLIST_FILE = theMars/Info.plist;
+				INFOPLIST_FILE = theMars/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -469,7 +489,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 273Z2JY65J;
-				INFOPLIST_FILE = theMars/Info.plist;
+				INFOPLIST_FILE = theMars/App/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
