@@ -21,7 +21,7 @@ class RoverFavorite {
     
     func del(_ photo: RoverPhoto) {
         list.removeAll(where: {$0 == photo})
-        AppSettingsManager.standart.saveToFavoriteList(photo)
+        AppSettingsManager.standart.replaceFavoriteList(list)
     }
     
     func isFavorite(_ photo: RoverPhoto) -> Bool {

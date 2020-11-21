@@ -48,6 +48,10 @@ class AppSettingsManager {
         
     }
     
+    func replaceFavoriteList(_ list: [RoverPhoto]) {
+        writeData(list, key: "favoriteList")
+    }
+    
     private func readData<T: Decodable>(key: String) -> T? {
         if let savedData = UserDefaults.standard.data(forKey: key) ,
            let savedFavoriteList = try? JSONDecoder().decode(T.self, from: savedData) {
