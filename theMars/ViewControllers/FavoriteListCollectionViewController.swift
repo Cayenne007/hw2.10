@@ -8,13 +8,15 @@
 import UIKit
 
 protocol UpdateFavoriteListDelegate {
-    func updateList()
+    func updateListFavorite()
 }
 
 class FavoriteListViewController: UIViewController, UpdateFavoriteListDelegate {
 
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var collectionView: UICollectionView!
+    
+    var delegate: UpdateFavoriteListDelegate!
     
     
     var list: [RoverPhoto] = [] {
@@ -42,11 +44,15 @@ class FavoriteListViewController: UIViewController, UpdateFavoriteListDelegate {
     
     }
     
-    func updateList() {
+    func updateListFavorite() {
         DispatchQueue.main.async {
             self.list = RoverFavorite.shared.list
             self.collectionView.reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate.updateListFavorite()
     }
 
 }

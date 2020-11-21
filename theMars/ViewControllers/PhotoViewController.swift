@@ -59,7 +59,7 @@ class PhotoViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         if let delegate = delegate {
-            delegate.updateList()
+            delegate.updateListFavorite()
         }
     }
     

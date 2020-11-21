@@ -46,9 +46,12 @@ class MainCollectionViewController: UICollectionViewController {
         if let photoVC = segue.destination as? PhotoViewController {
             photoVC.photos = photos
             photoVC.photoIndex = sender as? Int ?? 0
+            photoVC.delegate = self
         } else if let filterVC = segue.destination as? FilterViewController {
             filterVC.filter = filter
             filterVC.delegate = self
+        } else if let favoriteVC = segue.destination as? FavoriteListViewController {
+            favoriteVC.delegate = self
         }
     
     }
@@ -221,4 +224,11 @@ extension MainCollectionViewController {
         
     }
     
+}
+
+
+extension MainCollectionViewController: UpdateFavoriteListDelegate {
+    func updateListFavorite() {
+        collectionView.reloadData()
+    }
 }
