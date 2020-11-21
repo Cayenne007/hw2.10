@@ -13,7 +13,6 @@ class FilterViewController: UIViewController {
     @IBOutlet var roverTypeSegmentControl: UISegmentedControl!
     @IBOutlet var photoDatePicker: UIDatePicker!
     @IBOutlet var roverInfoLabel: UILabel!
-    @IBOutlet var cacheLabel: UILabel!
     
     
     var delegate: UpdateListDelegate!
@@ -85,8 +84,6 @@ class FilterViewController: UIViewController {
         }
         roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
         photoDatePicker.date = filter.date.toDate ?? Date()
-        
-        cacheLabel.text = "Картинок в кеш: \(ImageCache.shared.count())"
     
     }
     

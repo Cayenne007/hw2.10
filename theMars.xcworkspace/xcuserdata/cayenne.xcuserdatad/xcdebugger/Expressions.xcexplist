@@ -3,10 +3,13 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "MainCollectionViewController.scrollViewDidScroll(_:):MainCollectionViewController.swift">
+         contextName = "__pthread_kill:(null)">
+      </ContextState>
+      <ContextState
+         contextName = "static DataCache.load(url:):DataCache.swift">
          <PersistentStrings>
             <PersistentString
-               value = "scrollView.contentView">
+               value = "cachedData?.data">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -19,7 +22,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__pthread_kill:(null)">
+         contextName = "closure #2 in static NetworkManager.fetchImage(_:completion:):NetworkManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "url == response.url">
+            </PersistentString>
+            <PersistentString
+               value = "response.url!.description">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MainCollectionViewController.scrollViewDidScroll(_:):MainCollectionViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "scrollView.contentView">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

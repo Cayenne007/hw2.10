@@ -5,10 +5,11 @@
 //  Created by Cayenne on 14.11.2020.
 //
 
-struct RoverPhoto: Decodable {
+class RoverPhoto: Codable, Equatable {
+        
     let sol: Int
     let camera: RoverCamera
-    let imageUrl: String
+    var imageUrl: String
     let earthDate: String  //YYYY-MM-DD
     let rover: Rover
     
@@ -22,17 +23,36 @@ struct RoverPhoto: Decodable {
         """
     }
     
+    var isFavorite: Bool {
+        get {
+            RoverFavorite.shared.isFavorite(self)
+        }
+        set {
+                if newValue {
+                    RoverFavorite.shared.add(self)
+                } else {
+                    RoverFavorite.shared.del(self)
+                }
+            }
+        }
+    
     init(with data: [String : Any]) {
         sol = data["sol"] as? Int ?? 0
         camera = RoverCamera(with: data["camera"])
         imageUrl = data["img_src"] as? String ?? "N/A"
+        imageUrl = imageUrl.replacingOccurrences(of: "http://mars.jpl.nasa.gov", with: "https://mars.nasa.gov")
+        
         earthDate = data["earth_date"] as? String ?? "N/A"
         rover = Rover(with: data["rover"])
         
     }
+    
+    static func == (lhs: RoverPhoto, rhs: RoverPhoto) -> Bool {
+        lhs.imageUrl == rhs.imageUrl
+    }
 }
 
-struct RoverCamera: Decodable {
+struct RoverCamera: Codable {
     let name: String
     init(with data: Any?) {
         if let data = data as? [String: Any],
@@ -45,7 +65,7 @@ struct RoverCamera: Decodable {
     }
 }
 
-struct Rover: Decodable {
+struct Rover: Codable {
     let name: String
     init(with data: Any?) {
         if let data = data as? [String: Any],

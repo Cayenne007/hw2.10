@@ -6,7 +6,7 @@
 //
 
 
-class RoverFilter: Codable {
+struct RoverFilter: Codable {
     
     var roverType: RoverType
     var date: String
@@ -14,12 +14,6 @@ class RoverFilter: Codable {
     var description: String {
         "\(roverType) \(date)"
     }
-
-    init(roverType: RoverType, date: String) {
-        self.roverType = roverType
-        self.date = date
-    }
-    
     
 }
 

@@ -11,8 +11,6 @@ struct NetworkManager {
     
     static func loadData(filter: RoverFilter, completion: @escaping ([RoverPhoto])->()) {
         
-        ImageCache.shared.list.removeAll()
-        
         let url = "https://api.nasa.gov/mars-photos/api/v1/rovers/\(filter.roverType)/photos?earth_date=\(filter.date)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
         
         AF.request(url).validate().responseJSON { (dataResponse) in
@@ -30,19 +28,27 @@ struct NetworkManager {
        
     }
     
-    static func fetchImage(url: String, completion: @escaping (UIImage?)->()) {
+    static func fetchImage(_ url: String, completion: @escaping (UIImage?)->()) {
         
-        if let image = ImageCache.shared.load(url) {
-            completion(image)
+        guard let url = URL(string: url) else { return }
+        
+        if let data = DataCache.shared.load(url: url), let image = UIImage(data: data) {
+            DispatchQueue.main.async {
+                completion(image)
+            }
             return
         }
         
         AF.request(url).validate().responseData { (dataResponse) in
             switch dataResponse.result {
             case .success(_):
-                if let data = dataResponse.data {
+                if let data = dataResponse.data, let response = dataResponse.response {
+                    
+                    DataCache.shared.save(response: response, data: data)
+                    
+                    guard url == response.url else { return }
+                    
                     let image = UIImage(data: data)
-                    ImageCache.shared.save(url, image)
                     DispatchQueue.main.async {
                         completion(image)
                     }

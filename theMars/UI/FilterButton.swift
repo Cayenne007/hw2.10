@@ -9,7 +9,7 @@ import UIKit
 
 class FilterButton: UIButton {
 
-    
+
     required init(systemName: String) {
         
         super.init(frame: .zero)
@@ -17,8 +17,7 @@ class FilterButton: UIButton {
         layer.cornerRadius = 25
         
         clipsToBounds = true
-        let boldConfig = UIImage.SymbolConfiguration(weight: .bold)
-        setImage(UIImage(systemName: systemName, withConfiguration: boldConfig), for: .normal)
+        setImage(UIImage(systemName: systemName), for: .normal)
         
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -30,6 +29,7 @@ class FilterButton: UIButton {
             imageView?.tintColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         }
     }
+    
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -48,6 +48,5 @@ class FilterButton: UIButton {
         
         layer.add(pulse, forKey: nil)
     }
-
+    
 }
-

@@ -12,10 +12,10 @@ class AppSettingsManager {
     static var standart = AppSettingsManager()
     private init() {}
     
+    
     func loadRoverFilter() -> RoverFilter {
         
-        if let savedData = UserDefaults.standard.data(forKey: "filter") ,
-           let savedFilter = try? JSONDecoder().decode(RoverFilter.self, from: savedData){
+        if let savedFilter = readData(key: "filter") as RoverFilter? {
             return savedFilter
         } else {
             return RoverFilter(roverType: .curiosity, date: "2014-8-14")
@@ -23,10 +23,45 @@ class AppSettingsManager {
     }
     
     func saveRoverFilter(filter: RoverFilter) {
-        
-        guard let dataFilter = try? JSONEncoder().encode(filter) else { return }
-        UserDefaults.standard.set(dataFilter, forKey: "filter")
+        writeData(filter, key: "filter")
     }
     
+    func loadFavoriteList() -> [RoverPhoto] {
+        
+        if let list = readData(key: "favoriteList") as [RoverPhoto]? {
+            return list
+        } else {
+            return []
+        }
+        
+    }
+    
+    func saveToFavoriteList(_ photo: RoverPhoto) {
+        
+        if var favoritesList = readData(key: "favoriteList") as [RoverPhoto]?,
+           !favoritesList.contains(photo) {
+            favoritesList.append(photo)
+            writeData(favoritesList, key: "favoriteList")
+        } else {
+            writeData([photo], key: "favoriteList")
+        }
+        
+    }
+    
+    private func readData<T: Decodable>(key: String) -> T? {
+        if let savedData = UserDefaults.standard.data(forKey: key) ,
+           let savedFavoriteList = try? JSONDecoder().decode(T.self, from: savedData) {
+            return savedFavoriteList
+        } else {
+            return nil
+        }
+    }
+    
+    private func writeData<T: Encodable>(_ value: T, key: String) {
+        guard let data = try? JSONEncoder().encode(value) else { return }
+        UserDefaults.standard.set(data, forKey: key)
+    }
     
 }
+
+

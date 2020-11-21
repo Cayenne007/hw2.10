@@ -10,12 +10,13 @@ import UIKit
 class PhotoViewController: UIViewController {
 
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
-    @IBOutlet var infoPhotoNumber: UILabel!
 
     var activityView = UIActivityIndicatorView(style: .large)
     
     var backButton = FilterButton(systemName: "arrowtriangle.left")
+    var favoriteButton = FavoriteButton(false)
     var nextButton = FilterButton(systemName: "arrowtriangle.right")
     
     var photos: [RoverPhoto]!
@@ -43,9 +44,11 @@ class PhotoViewController: UIViewController {
         photos[photoIndex]
     }
  
+    var delegate: UpdateFavoriteListDelegate?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViewController()
     }
     
@@ -54,32 +57,17 @@ class PhotoViewController: UIViewController {
         filterButtonSetConstraint()
     }
     
-    
-    @IBAction func saveButtonPressed(_ sender: Any) {
-       
-        guard let image = imageView.image else { return }
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(imageSaved(image:didFinishSavingWithError:contextInfo:)), nil)
-        
-    }
-    
-    @IBAction func backNextButtonsClick(_ sender: FilterButton) {
-        
-        activityView.startAnimating()
-        photoIndex = ((sender.tag == 0) ? -1 : 1) + photoIndex
-        infoLabel.text = photo.description
-        infoPhotoNumber.text = photoCountInfo
-        NetworkManager.fetchImage(url: photo.imageUrl) { (image) in
-            self.imageView.image = image
-            self.activityView.stopAnimating()
+    override func viewWillDisappear(_ animated: Bool) {
+        if let delegate = delegate {
+            delegate.updateList()
         }
-        
     }
     
-    @objc func imageSaved(image:UIImage,didFinishSavingWithError error:Error,contextInfo:UnsafeMutableRawPointer?){
-        showAlert(title:"Успешно сохранено", message: "");
-    }
-    
-    
+}
+
+
+//MARK: functions
+extension PhotoViewController {
     private func setupViewController() {
         
         activityView.startAnimating()
@@ -89,19 +77,36 @@ class PhotoViewController: UIViewController {
         activityView.center = view.center
         
         infoLabel.text = photo.description
-        infoPhotoNumber.text = photoCountInfo
-        infoPhotoNumber.sizeToFit()
-        NetworkManager.fetchImage(url: photo.imageUrl) { (image) in
+        titleLabel.text = photoCountInfo
+
+        NetworkManager.fetchImage(photo.imageUrl) { (image) in
             self.imageView.image = image
             self.activityView.stopAnimating()
         }
         
+        setFilterButtons()
+        
+    }
+    
+}
+
+
+//MARK: Buttons setup
+extension PhotoViewController {
+    
+    private func setFilterButtons() {
         view.addSubview(backButton)
         backButton.addTarget(self, action: #selector(backNextButtonsClick(_:)), for: UIControl.Event.touchUpInside)
+        
+        view.addSubview(favoriteButton)
+        favoriteButton.isFavorite = photo.isFavorite
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonClick(_:)), for: UIControl.Event.touchUpInside)
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(favoriteButtonLongPress(_:)))
+        favoriteButton.addGestureRecognizer(longGesture)
+        
         view.addSubview(nextButton)
         nextButton.addTarget(self, action: #selector(backNextButtonsClick(_:)), for: UIControl.Event.touchUpInside)
         nextButton.tag = 1
-        
     }
     
     private func filterButtonSetConstraint() {
@@ -113,6 +118,11 @@ class PhotoViewController: UIViewController {
                                      backButton.widthAnchor.constraint(equalToConstant: 50),
                                      backButton.heightAnchor.constraint(equalToConstant: 50)])
         
+        NSLayoutConstraint.activate([favoriteButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: center),
+                                     favoriteButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
+                                     favoriteButton.widthAnchor.constraint(equalToConstant: 50),
+                                     favoriteButton.heightAnchor.constraint(equalToConstant: 50)])
+        
         NSLayoutConstraint.activate([nextButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: center+100),
                                      nextButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -53),
                                      nextButton.widthAnchor.constraint(equalToConstant: 50),
@@ -120,4 +130,37 @@ class PhotoViewController: UIViewController {
         
     }
     
+    @IBAction func backNextButtonsClick(_ sender: FilterButton) {
+        
+        activityView.startAnimating()
+        photoIndex = ((sender.tag == 0) ? -1 : 1) + photoIndex
+        favoriteButton.isFavorite = photo.isFavorite
+        infoLabel.text = photo.description
+        titleLabel.text = photoCountInfo
+        
+        NetworkManager.fetchImage(photo.imageUrl) { (image) in
+            self.imageView.image = image
+            self.activityView.stopAnimating()
+        }
+        
+    }
+    
+    @IBAction func favoriteButtonClick(_ sender: FavoriteButton) {
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        sender.isFavorite = !sender.isFavorite
+        photo.isFavorite = sender.isFavorite
+    }
+    
+    @IBAction func favoriteButtonLongPress(_ gesture: UILongPressGestureRecognizer) {
+        
+        if gesture.state == .began {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            guard let image = imageView.image else { return }
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(imageSaved(image:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func imageSaved(image:UIImage,didFinishSavingWithError error:Error,contextInfo:UnsafeMutableRawPointer?){
+        showAlert(title:"Сохранено в галерею", message: "");
+    }
 }

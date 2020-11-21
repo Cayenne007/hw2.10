@@ -18,8 +18,11 @@ class MainCollectionViewCell: UICollectionViewCell {
         self.imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.image = nil
+
+        imageView.layer.borderWidth = photo.isFavorite ? 3 : 0
+        imageView.layer.borderColor = UIColor.red.cgColor
         
-        NetworkManager.fetchImage(url: photo.imageUrl) { (image) in
+        NetworkManager.fetchImage(photo.imageUrl) { (image) in
             self.imageView.image = image
         }
         

@@ -22,6 +22,7 @@ class MainCollectionViewController: UICollectionViewController {
     var previousContentOffset: CGFloat = 0
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,30 +39,7 @@ class MainCollectionViewController: UICollectionViewController {
     }
     
     
-    // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-
-
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MainCollectionViewCell
-        let photo = photos[indexPath.item]
-        
-        cell.setData(photo: photo, item: indexPath.item)
     
-        return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "photo", sender: indexPath.item)
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -80,16 +58,57 @@ class MainCollectionViewController: UICollectionViewController {
         activityView.hidesWhenStopped = true
         view.addSubview(activityView)
         activityView.center = view.center
+        setFilterButtons()
+    }
+    
+    
+}
+
+// MARK: UICollectionViewDataSource
+extension MainCollectionViewController {
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! MainCollectionViewCell
+        let photo = photos[indexPath.item]
+        
+        cell.setData(photo: photo, item: indexPath.item)
+        
+        return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "photo", sender: indexPath.item)
+    }
+}
+
+
+//MARK: Buttons setup
+extension MainCollectionViewController {
+    private func setFilterButtons() {
         
         view.addSubview(dayBackwardButton)
         dayBackwardButton.addTarget(self, action: #selector(dayChangingButtonsClick(_:)), for: UIControl.Event.touchUpInside)
+        
         view.addSubview(filterButton)
         filterButton.addTarget(self, action: #selector(filterButtonClick(_:)), for: UIControl.Event.touchUpInside)
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(openFavoriteList(_:)))
+        filterButton.addGestureRecognizer(longGesture)
+        
         view.addSubview(dayForwardButton)
         dayForwardButton.addTarget(self, action: #selector(dayChangingButtonsClick(_:)), for: UIControl.Event.touchUpInside)
         dayForwardButton.tag = 1
+        
     }
-    
     private func filterButtonSetConstraint() {
 
         let center = -view.frame.size.width / 2 + 25
@@ -113,7 +132,6 @@ class MainCollectionViewController: UICollectionViewController {
         
     }
     
-    
     //MARK: Navigation backward-search-forward actions
     @IBAction func dayChangingButtonsClick(_ sender: FilterButton){
         
@@ -133,10 +151,16 @@ class MainCollectionViewController: UICollectionViewController {
         performSegue(withIdentifier: "filter", sender: nil)
 
     }
-        
 
-    
+    @IBAction func openFavoriteList(_ gesture: UILongPressGestureRecognizer) {
+        
+        if gesture.state == .began {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            performSegue(withIdentifier: "toFavoriteList", sender: nil)
+        }
+    }
 }
+
 
 
 extension MainCollectionViewController: UICollectionViewDelegateFlowLayout {
