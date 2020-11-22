@@ -7,9 +7,14 @@
 
 import Alamofire
 
-struct NetworkManager {
+class NetworkManager {
     
-    static func loadData(filter: RoverFilter, completion: @escaping ([RoverPhoto])->()) {
+    static var shared = NetworkManager()
+    
+    private init() {}
+    
+    
+    func loadData(filter: RoverFilter, completion: @escaping ([RoverPhoto])->()) {
         
         let url = "https://api.nasa.gov/mars-photos/api/v1/rovers/\(filter.roverType)/photos?earth_date=\(filter.date)&api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
         
@@ -28,7 +33,7 @@ struct NetworkManager {
        
     }
     
-    static func fetchImage(_ url: String, completion: @escaping (UIImage?)->()) {
+    func fetchImage(_ url: String, completion: @escaping (UIImage?)->()) {
         
         guard let url = URL(string: url) else { return }
         
@@ -44,9 +49,9 @@ struct NetworkManager {
             case .success(_):
                 if let data = dataResponse.data, let response = dataResponse.response {
                     
-                    DataCache.shared.save(response: response, data: data)
-                    
                     guard url == response.url else { return }
+                    
+                    DataCache.shared.save(url: url, response: response, data: data)
                     
                     let image = UIImage(data: data)
                     DispatchQueue.main.async {
@@ -61,7 +66,7 @@ struct NetworkManager {
     }
     
     
-    static func getRoverInfo(filter: RoverFilter, completion: @escaping (RoverInfo) -> ()) {
+    func getRoverInfo(filter: RoverFilter, completion: @escaping (RoverInfo) -> ()) {
         
         let url = "https://api.nasa.gov/mars-photos/api/v1/manifests/\(filter.roverType)?api_key=v7ik3uNVNN925fUHxcySjJGqpbgLT5sab29rjoV7"
         

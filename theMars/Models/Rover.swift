@@ -6,17 +6,19 @@
 //
 
 class RoverPhoto: Codable, Equatable {
-        
+    
+    let id: Int
     let sol: Int
     let camera: RoverCamera
-    var imageUrl: String
+    let imageUrl: String
     let earthDate: String  //YYYY-MM-DD
     let rover: Rover
     
     
     var description: String {
         """
-        camera: \(camera.name)
+        photo id: \(id)
+        camera: \(camera.fullName)
         sol: \(sol)
         date: \(earthDate)
         rover: \(rover.name)
@@ -28,22 +30,24 @@ class RoverPhoto: Codable, Equatable {
             RoverFavorite.shared.isFavorite(self)
         }
         set {
-                if newValue {
-                    RoverFavorite.shared.add(self)
-                } else {
-                    RoverFavorite.shared.del(self)
-                }
+            if newValue {
+                RoverFavorite.shared.add(self)
+            } else {
+                RoverFavorite.shared.del(self)
             }
         }
+    }
     
     init(with data: [String : Any]) {
+        id = data["id"] as? Int ?? 0
         sol = data["sol"] as? Int ?? 0
-        camera = RoverCamera(with: data["camera"])
-        imageUrl = data["img_src"] as? String ?? "N/A"
-        imageUrl = imageUrl.replacingOccurrences(of: "http://mars.jpl.nasa.gov", with: "https://mars.nasa.gov")
-        
+        camera = RoverCamera(data["camera"])
         earthDate = data["earth_date"] as? String ?? "N/A"
-        rover = Rover(with: data["rover"])
+        rover = Rover(data["rover"])
+        
+        let rawImageUrl = data["img_src"] as? String ?? "N/A"
+        //json fix for cache
+        imageUrl = rawImageUrl.replacingOccurrences(of: "http://mars.jpl.nasa.gov", with: "https://mars.nasa.gov")
         
     }
     
@@ -54,27 +58,19 @@ class RoverPhoto: Codable, Equatable {
 
 struct RoverCamera: Codable {
     let name: String
-    init(with data: Any?) {
-        if let data = data as? [String: Any],
-              let name = data["name"] as? String {
-            self.name = name
-        } else {
-            name = "N/A"
-        }
-        
+    let fullName: String
+    init(_ data: Any?) {
+        let dict = data as? [String: Any] ?? [:]
+        name = dict["name"] as? String ?? "N/A"
+        fullName = dict["full_name"] as? String ?? "N/A"
     }
 }
 
 struct Rover: Codable {
     let name: String
-    init(with data: Any?) {
-        if let data = data as? [String: Any],
-              let name = data["name"] as? String {
-            self.name = name
-        } else {
-            name = "N/A"
-        }
-        
+    init(_ data: Any?) {
+        let dict = data as? [String: Any] ?? [:]
+        name = dict["name"] as? String ?? "N/A"
     }
 }
 

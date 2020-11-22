@@ -78,7 +78,7 @@ extension FavoriteListViewController: UICollectionViewDelegate, UICollectionView
         cell.imageView.contentMode = .scaleAspectFill
         cell.imageView.clipsToBounds = true
         
-        NetworkManager.fetchImage(photo.imageUrl) { (image) in
+        NetworkManager.shared.fetchImage(photo.imageUrl) { (image) in
             cell.imageView.image = image
         }
         

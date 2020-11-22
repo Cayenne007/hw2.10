@@ -79,7 +79,7 @@ extension PhotoViewController {
         infoLabel.text = photo.description
         titleLabel.text = photoCountInfo
 
-        NetworkManager.fetchImage(photo.imageUrl) { (image) in
+        NetworkManager.shared.fetchImage(photo.imageUrl) { (image) in
             self.imageView.image = image
             self.activityView.stopAnimating()
         }
@@ -138,7 +138,7 @@ extension PhotoViewController {
         infoLabel.text = photo.description
         titleLabel.text = photoCountInfo
         
-        NetworkManager.fetchImage(photo.imageUrl) { (image) in
+        NetworkManager.shared.fetchImage(photo.imageUrl) { (image) in
             self.imageView.image = image
             self.activityView.stopAnimating()
         }

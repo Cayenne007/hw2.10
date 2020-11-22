@@ -148,6 +148,12 @@
                                     <action selector="confirmNewFilter" destination="GZf-Sj-2Xh" eventType="touchUpInside" id="iu9-OQ-xTY"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Размер кеша:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="slD-Ag-YqB">
+                                <rect key="frame" x="163.5" y="811" width="87" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NYc-DU-06s"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -158,11 +164,14 @@
                             <constraint firstItem="oR1-rD-zJk" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Ll0-XV-0md"/>
                             <constraint firstItem="DV3-cO-gnw" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="Myc-LA-Faw"/>
                             <constraint firstItem="NYc-DU-06s" firstAttribute="trailing" secondItem="uOK-R4-3jG" secondAttribute="trailing" constant="16" id="WGx-nz-p4T"/>
+                            <constraint firstItem="slD-Ag-YqB" firstAttribute="centerX" secondItem="4vC-wG-xKr" secondAttribute="centerX" id="fFI-Au-jTu"/>
+                            <constraint firstAttribute="bottom" secondItem="slD-Ag-YqB" secondAttribute="bottom" constant="15" id="hDy-AH-dm7"/>
                             <constraint firstItem="DV3-cO-gnw" firstAttribute="top" secondItem="uOK-R4-3jG" secondAttribute="bottom" constant="50" id="zCJ-1R-h3y"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Фильтр" id="owb-Uq-knz"/>
                     <connections>
+                        <outlet property="cacheInfoLabel" destination="slD-Ag-YqB" id="95f-ax-3Ui"/>
                         <outlet property="photoDatePicker" destination="zsr-ZU-gKG" id="4eG-0M-jxl"/>
                         <outlet property="roverInfoLabel" destination="KH2-fb-6gE" id="XoY-yK-Hen"/>
                         <outlet property="roverTypeSegmentControl" destination="bEO-LV-3V1" id="9VK-wv-CbZ"/>
@@ -273,10 +282,10 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uju-bG-0g3">
-                                <rect key="frame" x="16" y="119" width="382" height="100"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uju-bG-0g3">
+                                <rect key="frame" x="16" y="119" width="382" height="120"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="QLK-sR-eUr"/>
+                                    <constraint firstAttribute="height" constant="120" id="QLK-sR-eUr"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -334,7 +343,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7lU-Po-rEz"/>
+        <segue reference="WUO-Ls-xiE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">

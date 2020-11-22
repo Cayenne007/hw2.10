@@ -13,6 +13,7 @@ class FilterViewController: UIViewController {
     @IBOutlet var roverTypeSegmentControl: UISegmentedControl!
     @IBOutlet var photoDatePicker: UIDatePicker!
     @IBOutlet var roverInfoLabel: UILabel!
+    @IBOutlet var cacheInfoLabel: UILabel!
     
     
     var delegate: UpdateListDelegate!
@@ -23,6 +24,7 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
 
         setupViewController()
+        cacheInfoLabel.text = DataCache.shared.cacheInfo
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,7 +40,7 @@ class FilterViewController: UIViewController {
         AppSettingsManager.standart.saveRoverFilter(filter: filter)
         
         delegate.activityView.startAnimating()
-        NetworkManager.loadData(filter: filter) { (photos) in
+        NetworkManager.shared.loadData(filter: filter) { (photos) in
             
             if photos.count == 0 {
                 self.showAlert(title: "Нет данных", message: "В этот день не было данных от ровера. Попробуйте выбрать другой день...")
@@ -75,6 +77,12 @@ class FilterViewController: UIViewController {
         sender.value = 0
     }
     
+    @IBAction func openCacheSettings(sender: UITapGestureRecognizer) {
+        DataCache.shared.removeAll()
+        cacheInfoLabel.text = DataCache.shared.cacheInfo
+        showAlert(title: "Кэш изображений", message: "Успешно очищен")
+    }
+    
    
     private func setupViewController() {
         
@@ -84,12 +92,15 @@ class FilterViewController: UIViewController {
         }
         roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
         photoDatePicker.date = filter.date.toDate ?? Date()
+        
+        let cacheTap = UITapGestureRecognizer(target: self, action: #selector(openCacheSettings(sender:)))
+        cacheInfoLabel.addGestureRecognizer(cacheTap)
     
     }
     
     private func setRoverInfo(setDate: Bool = true) {
         
-        NetworkManager.getRoverInfo(filter: self.filter) { (roverInfo) in
+        NetworkManager.shared.getRoverInfo(filter: self.filter) { (roverInfo) in
             self.roverInfoLabel.text = roverInfo.info
             
             if setDate, let date = roverInfo.maxDate.toDate {
@@ -98,6 +109,10 @@ class FilterViewController: UIViewController {
         }
         
     }
-    
 
 }
+
+
+
+
+

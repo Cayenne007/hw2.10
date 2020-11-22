@@ -11,6 +11,7 @@ import UIKit
 class MainCollectionViewController: UICollectionViewController {
 
     var activityView = UIActivityIndicatorView(style: .large)
+    var refreshControl: UIRefreshControl!
     
     let dayBackwardButton = FilterButton(systemName: "arrowtriangle.left")
     let filterButton = FilterButton(systemName: "magnifyingglass")
@@ -28,7 +29,7 @@ class MainCollectionViewController: UICollectionViewController {
 
         setupViewController()
         
-        NetworkManager.loadData(filter: filter) { (photos) in
+        NetworkManager.shared.loadData(filter: filter) { (photos) in
             self.updateList(photos)
         }
     }
@@ -92,7 +93,9 @@ extension MainCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "photo", sender: indexPath.item)
     }
+    
 }
+
 
 
 //MARK: Buttons setup
@@ -143,7 +146,7 @@ extension MainCollectionViewController {
         sender.pulsate()
         activityView.startAnimating()
         
-        NetworkManager.loadData(filter: filter) { (photos) in
+        NetworkManager.shared.loadData(filter: filter) { (photos) in
             self.updateList(photos)
         }
 
