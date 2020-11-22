@@ -12,7 +12,8 @@ class PhotoViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
-
+    @IBOutlet var photoSlider: UISlider!
+    
     var activityView = UIActivityIndicatorView(style: .large)
     
     var backButton = FilterButton(systemName: "arrowtriangle.left")
@@ -24,23 +25,25 @@ class PhotoViewController: UIViewController {
         didSet {
             if photoIndex < 0 {
                 photoIndex = 0
-                if Thread.isMainThread {
+                if !withoutVibro && Thread.isMainThread {
                     backButton.pulsate()
                     UINotificationFeedbackGenerator().notificationOccurred(.error)
                 }
                 isAnimating = false
-            } else if photoIndex > photos.count-1 {
+            } else if !withoutVibro && photoIndex > photos.count-1 {
                 photoIndex = photos.count-1
                 if Thread.isMainThread {
                     nextButton.pulsate()
                     UINotificationFeedbackGenerator().notificationOccurred(.error)
                 }
                 isAnimating = false
-            } else if !isAnimating && isViewLoaded {
+            } else if !withoutVibro && !isAnimating && isViewLoaded {
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
             }
         }
     }
+    
+    var withoutVibro = false
     
     var photoCountInfo: String {
         "Фото \(photoIndex+1) из \(photos.count)"
@@ -54,6 +57,7 @@ class PhotoViewController: UIViewController {
     
     var isAnimating = false
     
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +74,15 @@ class PhotoViewController: UIViewController {
         if let delegate = delegate {
             delegate.updateListFavorite()
         }
+    }
+    
+    @IBAction func photoSliderChanged() {
+    
+        withoutVibro = true
+        photoIndex = Int(photoSlider.value)
+        changePhoto()
+        withoutVibro = false
+        
     }
     
 }
@@ -95,6 +108,11 @@ extension PhotoViewController {
         
         setFilterButtons()
         NetworkManager.shared.fetchImagesToCache(photos: photos)
+        
+        photoSlider.maximumValue = Float(photos.count - 1)
+        photoSlider.value = Float(photoIndex + 1)
+        photoSlider.minimumTrackTintColor = UIColor.red.withAlphaComponent(0.6)
+        
     }
     
 }
