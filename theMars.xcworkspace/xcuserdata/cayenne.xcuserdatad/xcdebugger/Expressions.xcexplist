@@ -6,6 +6,14 @@
          contextName = "__pthread_kill:(null)">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in PhotoViewController.animatePhotos(mod:):PhotoViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.photoIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static DataCache.load(url:):DataCache.swift">
          <PersistentStrings>
             <PersistentString

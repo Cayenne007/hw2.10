@@ -62,6 +62,30 @@ class NetworkManager {
             }
             
         }
+
+    }
+    
+    func fetchImagesToCache(photos: [RoverPhoto]) {
+        
+        DispatchQueue.global().async {
+            for photo in photos {
+                guard let url = URL(string: photo.imageUrl) else { return }
+                
+                guard DataCache.shared.load(url: url) == nil else { return }
+                
+                AF.request(url).validate().responseData { (dataResponse) in
+                    switch dataResponse.result {
+                    case .success(_):
+                        if let data = dataResponse.data, let response = dataResponse.response {
+                            DataCache.shared.save(url: url, response: response, data: data)
+                        }
+                    case .failure(let error): print(error)
+                    }
+                    
+                }
+            }
+            
+        }
         
     }
     

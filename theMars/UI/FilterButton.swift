@@ -37,6 +37,10 @@ class FilterButton: UIButton {
     
     
     func pulsate() {
+        
+        if !Thread.isMainThread {
+            return
+        }
         let pulse = CASpringAnimation(keyPath: "transform.scale")
         pulse.fromValue = 0.8
         pulse.toValue = 1
