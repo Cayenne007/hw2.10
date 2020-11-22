@@ -17,7 +17,6 @@ class RoverPhoto: Codable, Equatable {
     
     var description: String {
         """
-        photo id: \(id)
         camera: \(camera.fullName)
         sol: \(sol)
         date: \(earthDate)
@@ -87,7 +86,10 @@ struct RoverData: Decodable {
             return []
         }
         
-        return photosData.compactMap{RoverPhoto(with: $0)}
+        var result = photosData.compactMap{RoverPhoto(with: $0)}
+        result.sort(by: {$0.id < $1.id})
+        
+        return result
         
     }
 }

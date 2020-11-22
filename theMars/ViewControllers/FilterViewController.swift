@@ -14,6 +14,7 @@ class FilterViewController: UIViewController {
     @IBOutlet var photoDatePicker: UIDatePicker!
     @IBOutlet var roverInfoLabel: UILabel!
     @IBOutlet var cacheInfoLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
     
     
     var delegate: UpdateListDelegate!
@@ -24,7 +25,6 @@ class FilterViewController: UIViewController {
         super.viewDidLoad()
 
         setupViewController()
-        cacheInfoLabel.text = DataCache.shared.cacheInfo
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +83,19 @@ class FilterViewController: UIViewController {
         showAlert(title: "Кэш изображений", message: "Успешно очищен")
     }
     
+    @IBAction func setDefaultSettings(sender: UITapGestureRecognizer) {
+        let yesNoAlert = UIAlertController(title: "Настройки", message: "Сбросить настройки?", preferredStyle: UIAlertController.Style.alert)
+
+        yesNoAlert.addAction(UIAlertAction(title: "Да", style: .default) { _ in
+            self.filter = AppSettingsManager.standart.defaultFilter()
+            self.setupViewController()
+        })
+
+        yesNoAlert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: nil))
+
+        present(yesNoAlert, animated: true, completion: nil)
+    }
+    
    
     private func setupViewController() {
         
@@ -95,6 +108,11 @@ class FilterViewController: UIViewController {
         
         let cacheTap = UITapGestureRecognizer(target: self, action: #selector(openCacheSettings(sender:)))
         cacheInfoLabel.addGestureRecognizer(cacheTap)
+        
+        let titleTab = UITapGestureRecognizer(target: self, action: #selector(setDefaultSettings(sender:)))
+        titleLabel.addGestureRecognizer(titleTab)
+        
+        cacheInfoLabel.text = DataCache.shared.cacheInfo
     
     }
     

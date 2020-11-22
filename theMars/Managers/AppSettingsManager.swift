@@ -18,12 +18,16 @@ class AppSettingsManager {
         if let savedFilter = readData(key: "filter") as RoverFilter? {
             return savedFilter
         } else {
-            return RoverFilter(roverType: .curiosity, date: "2014-8-14")
+            return defaultFilter()
         }
     }
     
     func saveRoverFilter(filter: RoverFilter) {
         writeData(filter, key: "filter")
+    }
+    
+    func defaultFilter() -> RoverFilter {
+        RoverFilter(roverType: .curiosity, date: "2014-8-14")
     }
     
     func loadFavoriteList() -> [RoverPhoto] {

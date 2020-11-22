@@ -39,7 +39,9 @@ class MainCollectionViewController: UICollectionViewController {
         filterButtonSetConstraint()
     }
     
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        AppSettingsManager.standart.saveRoverFilter(filter: filter)
+    }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
