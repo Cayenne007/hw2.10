@@ -12,7 +12,6 @@ class PhotoViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var infoLabel: UILabel!
-    @IBOutlet var photoSlider: UISlider!
     
     var activityView = UIActivityIndicatorView(style: .large)
     
@@ -76,15 +75,6 @@ class PhotoViewController: UIViewController {
         }
     }
     
-    @IBAction func photoSliderChanged() {
-    
-        withoutVibro = true
-        photoIndex = Int(photoSlider.value)
-        changePhoto()
-        withoutVibro = false
-        
-    }
-    
 }
 
 
@@ -108,10 +98,6 @@ extension PhotoViewController {
         
         setFilterButtons()
         NetworkManager.shared.fetchImagesToCache(photos: photos)
-        
-        photoSlider.maximumValue = Float(photos.count - 1)
-        photoSlider.value = Float(photoIndex + 1)
-        photoSlider.minimumTrackTintColor = UIColor.red.withAlphaComponent(0.6)
         
     }
     
