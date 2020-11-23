@@ -45,10 +45,11 @@ class RoverPhoto: Codable, Equatable {
         rover = Rover(data["rover"])
         
         //imageUrl = data["img_src"] as? String ?? "N/A"
-        let rawImageUrl = data["img_src"] as? String ?? "N/A"
+        var rawImageUrl = data["img_src"] as? String ?? "N/A"
         //http -> https
-        //imageUrl = rawImageUrl.replacingOccurrences(of: "http://mars.jpl.nasa.gov", with: "https://mars.nasa.gov")
-        imageUrl = rawImageUrl.replacingOccurrences(of: "http:", with: "https:")
+        rawImageUrl = rawImageUrl.replacingOccurrences(of: "http://", with: "https://")
+        imageUrl = rawImageUrl.replacingOccurrences(of: "mars.jpl.nasa.gov", with: "mars.nasa.gov")
+        //imageUrl = rawImageUrl.replacingOccurrences(of: "http:", with: "https:")
         
     }
     

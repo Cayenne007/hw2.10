@@ -3,29 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "__pthread_kill:(null)">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in PhotoViewController.animatePhotos(mod:):PhotoViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.photoIndex">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "static DataCache.load(url:):DataCache.swift">
          <PersistentStrings>
             <PersistentString
                value = "cachedData?.data">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "PhotoViewController.backNextButtonsClick(_:):PhotoViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "infoPhotoNumber">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -45,6 +26,39 @@
          <PersistentStrings>
             <PersistentString
                value = "scrollView.contentView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in NetworkManager.fetchImage(_:completion:):NetworkManager.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "response.url">
+            </PersistentString>
+            <PersistentString
+               value = "url.description">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "PhotoViewController.backNextButtonsClick(_:):PhotoViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "infoPhotoNumber">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__pthread_kill:(null)">
+      </ContextState>
+      <ContextState
+         contextName = "NetworkManager.fetchImage(_:completion:):NetworkManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in PhotoViewController.animatePhotos(mod:):PhotoViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.photoIndex">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
