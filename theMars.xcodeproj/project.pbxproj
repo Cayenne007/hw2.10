@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		6ACF623D4D6147C199B0A9A9 /* Pods_theMars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6E59CCA889B8F5EE5623FB1 /* Pods_theMars.framework */; };
 		9F201AE42568062E007800CA /* AppSettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F201AE32568062E007800CA /* AppSettingsManager.swift */; };
+		AB045B042576CAB900D7CB0C /* Rover.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AB045B022576CAB900D7CB0C /* Rover.xcdatamodeld */; };
+		AB045B072576CB2800D7CB0C /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB045B062576CB2800D7CB0C /* StorageManager.swift */; };
 		AB12C5FA2560033B007AE033 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C5F92560033B007AE033 /* NetworkManager.swift */; };
-		AB12C60425601646007AE033 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C60325601646007AE033 /* PhotoViewController.swift */; };
 		AB12C60C25604BB8007AE033 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C60B25604BB8007AE033 /* FilterViewController.swift */; };
 		AB12C60F25604CA3007AE033 /* RoverFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C60E25604CA3007AE033 /* RoverFilter.swift */; };
 		AB12C61225604E18007AE033 /* Extension +Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB12C61125604E18007AE033 /* Extension +Date.swift */; };
@@ -37,8 +38,9 @@
 /* Begin PBXFileReference section */
 		42904DBC6086D60E805D2BA3 /* Pods-theMars.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-theMars.debug.xcconfig"; path = "Target Support Files/Pods-theMars/Pods-theMars.debug.xcconfig"; sourceTree = "<group>"; };
 		9F201AE32568062E007800CA /* AppSettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsManager.swift; sourceTree = "<group>"; };
+		AB045B032576CAB900D7CB0C /* Rover.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Rover.xcdatamodel; sourceTree = "<group>"; };
+		AB045B062576CB2800D7CB0C /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		AB12C5F92560033B007AE033 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		AB12C60325601646007AE033 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		AB12C60B25604BB8007AE033 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		AB12C60E25604CA3007AE033 /* RoverFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoverFilter.swift; sourceTree = "<group>"; };
 		AB12C61125604E18007AE033 /* Extension +Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension +Date.swift"; sourceTree = "<group>"; };
@@ -114,7 +116,6 @@
 				AB12C60B25604BB8007AE033 /* FilterViewController.swift */,
 				AB611F1F255FD0F40075AC11 /* MainCollectionViewController.swift */,
 				AB611F22255FD28A0075AC11 /* MainCollectionViewCell.swift */,
-				AB12C60325601646007AE033 /* PhotoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -146,6 +147,7 @@
 				9F201AE32568062E007800CA /* AppSettingsManager.swift */,
 				ABE6CA85256914D300FA87FA /* DataCache.swift */,
 				AB12C5F92560033B007AE033 /* NetworkManager.swift */,
+				AB045B062576CB2800D7CB0C /* StorageManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -189,6 +191,7 @@
 				AB12C6172560554A007AE033 /* ViewControllers */,
 				AB611F04255FCE920075AC11 /* Main.storyboard */,
 				AB611F09255FCE950075AC11 /* LaunchScreen.storyboard */,
+				AB045B022576CAB900D7CB0C /* Rover.xcdatamodeld */,
 			);
 			path = theMars;
 			sourceTree = "<group>";
@@ -327,7 +330,8 @@
 				AB611F20255FD0F40075AC11 /* MainCollectionViewController.swift in Sources */,
 				ABE6CA832568601400FA87FA /* FavoriteListCollectionViewCell.swift in Sources */,
 				AB611F01255FCE920075AC11 /* SceneDelegate.swift in Sources */,
-				AB12C60425601646007AE033 /* PhotoViewController.swift in Sources */,
+				AB045B042576CAB900D7CB0C /* Rover.xcdatamodeld in Sources */,
+				AB045B072576CB2800D7CB0C /* StorageManager.swift in Sources */,
 				AB611F27255FFFB90075AC11 /* Rover.swift in Sources */,
 				ABE6CA86256914D300FA87FA /* DataCache.swift in Sources */,
 				AB611F23255FD28A0075AC11 /* MainCollectionViewCell.swift in Sources */,
@@ -539,6 +543,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AB045B022576CAB900D7CB0C /* Rover.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AB045B032576CAB900D7CB0C /* Rover.xcdatamodel */,
+			);
+			currentVersion = AB045B032576CAB900D7CB0C /* Rover.xcdatamodel */;
+			path = Rover.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AB611EF3255FCE920075AC11 /* Project object */;
 }

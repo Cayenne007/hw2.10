@@ -37,7 +37,7 @@ class FilterViewController: UIViewController {
         filter.roverType = RoverType.allCases[roverTypeSegmentControl.selectedSegmentIndex]
         filter.date = photoDatePicker.date.toString
         
-        AppSettingsManager.standart.saveRoverFilter(filter: filter)
+        AppSettingsManager.shared.saveRoverFilter(filter: filter)
         
         delegate.activityView.startAnimating()
         NetworkManager.shared.loadData(filter: filter) { (photos) in
@@ -87,7 +87,7 @@ class FilterViewController: UIViewController {
         let yesNoAlert = UIAlertController(title: "Настройки", message: "Сбросить настройки?", preferredStyle: UIAlertController.Style.alert)
 
         yesNoAlert.addAction(UIAlertAction(title: "Да", style: .default) { _ in
-            self.filter = AppSettingsManager.standart.defaultFilter()
+            self.filter = AppSettingsManager.shared.defaultFilter()
             self.setupViewController()
         })
 
@@ -112,7 +112,7 @@ class FilterViewController: UIViewController {
         let titleTab = UITapGestureRecognizer(target: self, action: #selector(setDefaultSettings(sender:)))
         titleLabel.addGestureRecognizer(titleTab)
         
-        cacheInfoLabel.text = DataCache.shared.cacheInfo
+        cacheInfoLabel.text = StorageManager.shared.getSize()
     
     }
     

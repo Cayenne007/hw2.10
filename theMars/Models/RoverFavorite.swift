@@ -8,7 +8,7 @@
 class RoverFavorite {
     
     static var shared = RoverFavorite()
-    var list: [RoverPhoto] = AppSettingsManager.standart.loadFavoriteList()
+    var list: [RoverPhoto] = AppSettingsManager.shared.loadFavoriteList()
     
     private init() {}
     
@@ -16,12 +16,12 @@ class RoverFavorite {
         if !list.contains(photo) {
             list.append(photo)
         }
-        AppSettingsManager.standart.saveToFavoriteList(photo)
+        AppSettingsManager.shared.saveToFavoriteList(photo)
     }
     
     func del(_ photo: RoverPhoto) {
         list.removeAll(where: {$0 == photo})
-        AppSettingsManager.standart.replaceFavoriteList(list)
+        AppSettingsManager.shared.replaceFavoriteList(list)
     }
     
     func isFavorite(_ photo: RoverPhoto) -> Bool {

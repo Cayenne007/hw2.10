@@ -57,7 +57,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" title="Фотографии" id="fbx-Bn-ms2"/>
                     <connections>
-                        <segue destination="z7c-AQ-8CJ" kind="presentation" identifier="photo" id="7lU-Po-rEz"/>
                         <segue destination="GZf-Sj-2Xh" kind="showDetail" identifier="filter" id="vnl-dn-VGT"/>
                         <segue destination="Ckt-yl-UJl" kind="showDetail" identifier="toFavoriteList" id="6rG-uK-9Of"/>
                     </connections>
@@ -257,72 +256,11 @@
                     <connections>
                         <outlet property="collectionView" destination="2zh-xa-jlY" id="cmX-dB-8s7"/>
                         <outlet property="infoLabel" destination="3Xe-qx-HuB" id="HpT-Z0-BV1"/>
-                        <segue destination="z7c-AQ-8CJ" kind="showDetail" identifier="photo" id="WUO-Ls-xiE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oc5-dt-xQD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2460.8695652173915" y="-670.3125"/>
-        </scene>
-        <!--Фото-->
-        <scene sceneID="ujM-2i-yE2">
-            <objects>
-                <viewController id="z7c-AQ-8CJ" customClass="PhotoViewController" customModule="theMars" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sx7-fu-uDj">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CCc-gx-qJq">
-                                <rect key="frame" x="0.0" y="100" width="414" height="708"/>
-                                <gestureRecognizers/>
-                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фото" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FUn-WW-4Mv">
-                                <rect key="frame" x="167" y="20" width="80" height="41"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="info" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uju-bG-0g3">
-                                <rect key="frame" x="16" y="119" width="382" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="QLK-sR-eUr"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="lSJ-df-Eul"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="CCc-gx-qJq" firstAttribute="leading" secondItem="lSJ-df-Eul" secondAttribute="leading" id="3ke-jF-bov"/>
-                            <constraint firstItem="lSJ-df-Eul" firstAttribute="trailing" secondItem="uju-bG-0g3" secondAttribute="trailing" constant="16" id="6Xm-zJ-DZT"/>
-                            <constraint firstItem="uju-bG-0g3" firstAttribute="top" secondItem="FUn-WW-4Mv" secondAttribute="bottom" constant="58" id="E9y-Nr-5Ug"/>
-                            <constraint firstItem="lSJ-df-Eul" firstAttribute="trailing" secondItem="CCc-gx-qJq" secondAttribute="trailing" id="FOF-NT-ELD"/>
-                            <constraint firstItem="CCc-gx-qJq" firstAttribute="top" secondItem="lSJ-df-Eul" secondAttribute="top" constant="100" id="MDJ-ig-bX0"/>
-                            <constraint firstItem="FUn-WW-4Mv" firstAttribute="centerX" secondItem="sx7-fu-uDj" secondAttribute="centerX" id="fVW-pR-tMx"/>
-                            <constraint firstItem="lSJ-df-Eul" firstAttribute="bottom" secondItem="CCc-gx-qJq" secondAttribute="bottom" id="iM0-48-qk7"/>
-                            <constraint firstItem="uju-bG-0g3" firstAttribute="leading" secondItem="lSJ-df-Eul" secondAttribute="leading" constant="16" id="jXy-Mf-Qho"/>
-                            <constraint firstItem="FUn-WW-4Mv" firstAttribute="top" secondItem="lSJ-df-Eul" secondAttribute="top" constant="20" id="kN9-dQ-hm3"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Фото" id="Ze9-A3-70G">
-                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="k8z-T9-2vG">
-                            <connections>
-                                <action selector="saveButtonPressed:" destination="z7c-AQ-8CJ" id="bYx-wX-YDV"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="imageView" destination="CCc-gx-qJq" id="HeW-9k-dlB"/>
-                        <outlet property="infoLabel" destination="uju-bG-0g3" id="GaQ-bD-wvL"/>
-                        <outlet property="titleLabel" destination="FUn-WW-4Mv" id="0eN-lk-Uxy"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="boE-pP-0nR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2462.3188405797105" y="62.946428571428569"/>
+            <point key="canvasLocation" x="2638" y="63"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8hg-XN-QUd">
@@ -343,9 +281,6 @@
             <point key="canvasLocation" x="31.884057971014496" y="62.946428571428569"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="WUO-Ls-xiE"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

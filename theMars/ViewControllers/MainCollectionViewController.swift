@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ImageSlideshow
 
 
 class MainCollectionViewController: UICollectionViewController {
@@ -17,11 +18,12 @@ class MainCollectionViewController: UICollectionViewController {
     let filterButton = FilterButton(systemName: "magnifyingglass")
     let dayForwardButton = FilterButton(systemName: "arrowtriangle.right")
     
-    var filter = AppSettingsManager.standart.loadRoverFilter()
+    var filter = AppSettingsManager.shared.loadRoverFilter()
     var photos: [RoverPhoto] = []
     
     var previousContentOffset: CGFloat = 0
     
+    var imageSlideshow: ImageSlideshow!
     
     
     override func viewDidLoad() {
@@ -40,17 +42,13 @@ class MainCollectionViewController: UICollectionViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        AppSettingsManager.standart.saveRoverFilter(filter: filter)
+        AppSettingsManager.shared.saveRoverFilter(filter: filter)
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let photoVC = segue.destination as? PhotoViewController {
-            photoVC.photos = photos
-            photoVC.photoIndex = sender as? Int ?? 0
-            photoVC.delegate = self
-        } else if let filterVC = segue.destination as? FilterViewController {
+        if let filterVC = segue.destination as? FilterViewController {
             filterVC.filter = filter
             filterVC.delegate = self
         } else if let favoriteVC = segue.destination as? FavoriteListViewController {
@@ -65,6 +63,11 @@ class MainCollectionViewController: UICollectionViewController {
         view.addSubview(activityView)
         activityView.center = view.center
         setFilterButtons()
+        
+        imageSlideshow = ImageSlideshow(frame: CGRect(x: UIScreen.main.bounds.midX,
+                                                      y: UIScreen.main.bounds.midY,
+                                                      width: 10,
+                                                      height: 10))
     }
     
     
@@ -93,7 +96,17 @@ extension MainCollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "photo", sender: indexPath.item)
+        
+        var collection: [ImageSource] = []
+        for element in StorageManager.shared.fetchCollection(photos: photos) {
+            collection.append(ImageSource(image: element))
+        }
+        imageSlideshow.setImageInputs(collection)
+        imageSlideshow.setCurrentPage(indexPath.row, animated: false)
+        
+        imageSlideshow.presentFullScreenController(from: self)
+        
+        
     }
     
 }

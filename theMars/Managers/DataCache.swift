@@ -34,6 +34,10 @@ class DataCache {
         let request = URLRequest(url: url)
         let cachedData = URLCache.shared.cachedResponse(for: request)
         
+        if let data = cachedData?.data {
+            StorageManager.shared.save(url: url, data: data)
+        }
+        
         return cachedData?.data
     }
     

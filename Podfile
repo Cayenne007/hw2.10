@@ -6,5 +6,6 @@ target 'theMars' do
   use_frameworks!
 
   pod 'Alamofire'
+  pod 'ImageSlideshow'
 
 end

@@ -9,7 +9,10 @@ import Foundation
 
 
 class AppSettingsManager {
-    static var standart = AppSettingsManager()
+    
+    static var shared = AppSettingsManager()
+    
+    
     private init() {}
     
     

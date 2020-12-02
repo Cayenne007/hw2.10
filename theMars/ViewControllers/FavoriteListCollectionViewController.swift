@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ImageSlideshow
 
 protocol UpdateFavoriteListDelegate {
     func updateListFavorite()
@@ -15,6 +16,8 @@ class FavoriteListViewController: UIViewController, UpdateFavoriteListDelegate {
 
     @IBOutlet var infoLabel: UILabel!
     @IBOutlet var collectionView: UICollectionView!
+    
+    var imageSlideshow: ImageSlideshow!
     
     var delegate: UpdateFavoriteListDelegate!
     
@@ -30,18 +33,10 @@ class FavoriteListViewController: UIViewController, UpdateFavoriteListDelegate {
         super.viewDidLoad()
         list = RoverFavorite.shared.list
         collectionView.reloadData()
-    }
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let photoVC = segue.destination as? PhotoViewController {
-            photoVC.photos = list
-            photoVC.photoIndex = sender as? Int ?? 0
-            photoVC.delegate = self
-        }
-    
+        imageSlideshow = ImageSlideshow(frame: CGRect(x: UIScreen.main.bounds.midX,
+                                                      y: UIScreen.main.bounds.midY,
+                                                      width: 10,
+                                                      height: 10))
     }
     
     func updateListFavorite() {
@@ -61,7 +56,6 @@ class FavoriteListViewController: UIViewController, UpdateFavoriteListDelegate {
 extension FavoriteListViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -86,7 +80,14 @@ extension FavoriteListViewController: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "photo", sender: indexPath.item)
+        var collection: [ImageSource] = []
+        for element in StorageManager.shared.fetchCollection(photos: list) {
+            collection.append(ImageSource(image: element))
+        }
+        imageSlideshow.setImageInputs(collection)
+        imageSlideshow.setCurrentPage(indexPath.row, animated: false)
+        
+        imageSlideshow.presentFullScreenController(from: self)
     }
 }
 
