@@ -77,11 +77,6 @@ class FilterViewController: UIViewController {
         sender.value = 0
     }
     
-    @IBAction func openCacheSettings(sender: UITapGestureRecognizer) {
-        DataCache.shared.removeAll()
-        cacheInfoLabel.text = DataCache.shared.cacheInfo
-        showAlert(title: "Кэш изображений", message: "Успешно очищен")
-    }
     
     @IBAction func setDefaultSettings(sender: UITapGestureRecognizer) {
         let yesNoAlert = UIAlertController(title: "Настройки", message: "Сбросить настройки?", preferredStyle: UIAlertController.Style.alert)
@@ -105,10 +100,7 @@ class FilterViewController: UIViewController {
         }
         roverTypeSegmentControl.selectedSegmentIndex = filter.roverType.rawValue
         photoDatePicker.date = filter.date.toDate ?? Date()
-        
-        let cacheTap = UITapGestureRecognizer(target: self, action: #selector(openCacheSettings(sender:)))
-        cacheInfoLabel.addGestureRecognizer(cacheTap)
-        
+                
         let titleTab = UITapGestureRecognizer(target: self, action: #selector(setDefaultSettings(sender:)))
         titleLabel.addGestureRecognizer(titleTab)
         

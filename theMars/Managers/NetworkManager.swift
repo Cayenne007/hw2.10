@@ -41,12 +41,6 @@ class NetworkManager {
             }
             return
         }
-//        if let data = DataCache.shared.load(url: url), let image = UIImage(data: data) {
-//            DispatchQueue.main.async {
-//                completion(image)
-//            }
-//            return
-//        }
         
         guard let url = URL(string: url) else { return }
         
@@ -57,7 +51,6 @@ class NetworkManager {
                     
                     guard url == response.url else { return }
                     
-                    //DataCache.shared.save(url: url, response: response, data: data)
                     StorageManager.shared.save(url: url, data: data)
                     
                     let image = UIImage(data: data)
@@ -71,30 +64,6 @@ class NetworkManager {
         }
 
     }
-    
-//    func fetchImagesToCache(photos: [RoverPhoto]) {
-//
-//        DispatchQueue.global().async {
-//            for photo in photos {
-//                guard let url = URL(string: photo.imageUrl) else { return }
-//
-//                guard DataCache.shared.load(url: url) == nil else { return }
-//
-//                AF.request(url).validate().responseData { (dataResponse) in
-//                    switch dataResponse.result {
-//                    case .success(_):
-//                        if let data = dataResponse.data, let response = dataResponse.response {
-//                            DataCache.shared.save(url: url, response: response, data: data)
-//                        }
-//                    case .failure(let error): print(error)
-//                    }
-//
-//                }
-//            }
-//
-//        }
-//
-//    }
     
     
     func getRoverInfo(filter: RoverFilter, completion: @escaping (RoverInfo) -> ()) {

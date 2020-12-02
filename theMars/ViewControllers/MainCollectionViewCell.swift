@@ -22,6 +22,8 @@ class MainCollectionViewCell: UICollectionViewCell {
         imageView.layer.borderWidth = photo.isFavorite ? 3 : 0
         imageView.layer.borderColor = UIColor.red.cgColor
         
+        isUserInteractionEnabled = true
+        
         NetworkManager.shared.fetchImage(photo.imageUrl) { (image) in
             self.imageView.image = image
         }

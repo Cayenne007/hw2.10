@@ -44,12 +44,10 @@ class RoverPhoto: Codable, Equatable {
         earthDate = data["earth_date"] as? String ?? "N/A"
         rover = Rover(data["rover"])
         
-        //imageUrl = data["img_src"] as? String ?? "N/A"
         var rawImageUrl = data["img_src"] as? String ?? "N/A"
         //http -> https
         rawImageUrl = rawImageUrl.replacingOccurrences(of: "http://", with: "https://")
         imageUrl = rawImageUrl.replacingOccurrences(of: "mars.jpl.nasa.gov", with: "mars.nasa.gov")
-        //imageUrl = rawImageUrl.replacingOccurrences(of: "http:", with: "https:")
         
     }
     

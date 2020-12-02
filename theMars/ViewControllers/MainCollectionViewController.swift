@@ -92,6 +92,9 @@ extension MainCollectionViewController {
         
         cell.setData(photo: photo, item: indexPath.item)
         
+        let interaction = UIContextMenuInteraction(delegate: self)
+        cell.addInteraction(interaction)
+        
         return cell
     }
     
@@ -105,7 +108,6 @@ extension MainCollectionViewController {
         imageSlideshow.setCurrentPage(indexPath.row, animated: false)
         
         imageSlideshow.presentFullScreenController(from: self)
-        
         
     }
     
@@ -249,4 +251,50 @@ extension MainCollectionViewController: UpdateFavoriteListDelegate {
     func updateListFavorite() {
         collectionView.reloadData()
     }
+}
+
+extension MainCollectionViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        nil
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            let photo = self.photos[indexPath.item]
+            
+            var actions = [UIAction]()
+            
+            let favoriteTitle = photo.isFavorite ? "Убрать из избранного" : "Добавить в избранное"
+            let favoriteImage = photo.isFavorite ? UIImage(systemName: "star.slash") : UIImage(systemName: "star")
+            let action = UIAction(title: favoriteTitle,
+                                  image: favoriteImage) { _ in
+                if photo.isFavorite {
+                    RoverFavorite.shared.del(photo)
+                } else {
+                    RoverFavorite.shared.add(photo)
+                }
+                self.collectionView.reloadItems(at: [indexPath])
+            }
+            
+            let saveAction = UIAction(title: "Сохранить",
+                                      image: UIImage(systemName: "folder")) { (action) in
+                NetworkManager.shared.fetchImage(photo.imageUrl) { (image) in
+                    if let image = image {
+                        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                        self.showAlert(title: "Сохранено", message: "")
+                    }
+                    
+                }
+            }
+            
+            actions.append(action)
+            actions.append(saveAction)
+            return UIMenu(title: "", children: actions)
+        }
+        return configuration
+        
+    }
+        
 }

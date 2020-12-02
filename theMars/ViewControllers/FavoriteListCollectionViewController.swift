@@ -72,6 +72,9 @@ extension FavoriteListViewController: UICollectionViewDelegate, UICollectionView
         cell.imageView.contentMode = .scaleAspectFill
         cell.imageView.clipsToBounds = true
         
+        let interaction = UIContextMenuInteraction(delegate: self)
+        cell.addInteraction(interaction)
+        
         NetworkManager.shared.fetchImage(photo.imageUrl) { (image) in
             cell.imageView.image = image
         }
@@ -100,4 +103,52 @@ extension FavoriteListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: (screenWidth/2)-6, height: (screenWidth/2)-6)
             
     }
+}
+
+
+
+
+extension FavoriteListViewController: UIContextMenuInteractionDelegate {
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        nil
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let configuration = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { suggestedActions in
+            
+            let photo = self.list[indexPath.item]
+            
+            var actions = [UIAction]()
+            
+            let favoriteTitle = "Убрать из избранного"
+            let favoriteImage = UIImage(systemName: "star.slash")
+            let action = UIAction(title: favoriteTitle,
+                                  image: favoriteImage) { _ in
+                if photo.isFavorite {
+                    RoverFavorite.shared.del(photo)
+                }
+                self.list = RoverFavorite.shared.list
+                self.collectionView.deleteItems(at: [indexPath])
+            }
+            
+            let saveAction = UIAction(title: "Сохранить",
+                                      image: UIImage(systemName: "folder")) { (action) in
+                NetworkManager.shared.fetchImage(photo.imageUrl) { (image) in
+                    if let image = image {
+                        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                        self.showAlert(title: "Сохранено", message: "")
+                    }
+                    
+                }
+            }
+            
+            actions.append(action)
+            actions.append(saveAction)
+            return UIMenu(title: "", children: actions)
+        }
+        return configuration
+        
+    }
+        
 }
